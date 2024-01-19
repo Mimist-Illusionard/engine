@@ -1,5 +1,5 @@
 #ifndef SHADERFUNCTIONAL
-#include "Shader.h"
+#include "ShaderLoader.h"
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -10,51 +10,31 @@ enum DrawMode
 	WAREFRAMEMODE = 1,
 };
 
-class ShaderFunctional
+class Object
 {
-	unsigned int shaderProgram;
 	unsigned int VBO, VAO, EBO;
-	const char* vertexShaderSource = "#version 330 core\n"
-		"layout (location = 0) in vec3 aPos;\n"
-		"void main()\n"
-		"{\n"
-		"   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-		"}\0";
-
-	const char* fragmentShaderSource = "#version 330 core\n"
-		"out vec4 FragColor;\n"
-		"void main()\n"
-		"{\n"
-		"   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
-		"}\n\0";
 public:
-	ShaderFunctional();
-	~ShaderFunctional();
+	Object();
+	~Object();
 	void InputVertex();
 	void Draw(int);
 };
 
-ShaderFunctional::ShaderFunctional()
+Object::Object()
 {
-	if (!CreateProgramShader(vertexShaderSource, fragmentShaderSource, &shaderProgram))
-	{
-		std::cout << "Error in creating shader. See other errors." << std::endl;
-	}
-
 	glGenBuffers(1, &VBO);
 	glGenBuffers(1, &EBO);
 	glGenVertexArrays(1, &VAO);
 }
  
-ShaderFunctional::~ShaderFunctional()
+Object::~Object()
 {
 	glDeleteVertexArrays(1, &VAO);
 	glDeleteBuffers(1, &VBO);
 	glDeleteBuffers(1, &EBO);
-	glDeleteProgram(shaderProgram);
 }
 
-void ShaderFunctional::InputVertex()
+void Object::InputVertex()
 {
 	float vertices[] =
 	{
@@ -85,9 +65,8 @@ void ShaderFunctional::InputVertex()
 	glBindVertexArray(0);
 }
 
-void ShaderFunctional::Draw(int drawMode)
+void Object::Draw(int drawMode)
 {
-	glUseProgram(shaderProgram);
 	glBindVertexArray(VAO);
 	switch (drawMode)
 	{

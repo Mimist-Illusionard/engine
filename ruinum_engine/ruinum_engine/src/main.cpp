@@ -1,4 +1,5 @@
-#include "shader/ShaderFunctional.hpp"
+#include "shader/Object.hpp"
+#include "shader/Shader.hpp"
 #include "Global.h"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -27,14 +28,18 @@ int main()
     }
 
 
-    ShaderFunctional triangleShader;
-    triangleShader.InputVertex();
+    Object triangle;
+    triangle.InputVertex();
+
+    Shader redShader("D:/GitHub/engine/ruinum_engine/shaders/RedShader.vs", "D:/GitHub/engine/ruinum_engine/shaders/RedShader.fs");
+
     while (!glfwWindowShouldClose(window))
     {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         
-        triangleShader.Draw(DrawMode::WAREFRAMEMODE);
+        redShader.Use();
+        triangle.Draw(DrawMode::SOLIDMODE);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
