@@ -37,20 +37,18 @@ bool CreateFragmentShader(const char* fragmentShaderSource, unsigned int* fragme
 	return true;
 }
 
-bool CreateShader(const char* vertexShaderSource, const char* fragmentShaderSource, unsigned int* shaderProgram)
+bool CreateProgramShader(const char* vertexShaderSource, const char* fragmentShaderSource, unsigned int* shaderProgram)
 {
 	unsigned int vertexShader;
 	unsigned int fragmentShader;
 
 	if (!CreateVertexShader(vertexShaderSource, &vertexShader)) 
 	{
-		std::cout << "Error in compilation of vertex shader." << std::endl;
 		return false;
 	}
 	
 	if (!CreateFragmentShader(fragmentShaderSource, &fragmentShader) )
 	{
-		std::cout << "Error in compilation of fragment shader." << std::endl;
 		return false;
 	}
 
@@ -64,7 +62,6 @@ bool CreateShader(const char* vertexShaderSource, const char* fragmentShaderSour
 	{
 		glGetProgramInfoLog(*shaderProgram, 512, NULL, infoLog);
 		std::cout << "ERROR::SHADER::PROGRAM::COMPILATION_FAILED\n" << infoLog << std::endl;
-
 		return false;
 	}
 

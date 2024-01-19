@@ -136,14 +136,13 @@
     <ClCompile Include="glad.c" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\shader\Shader.cpp" />
-    <ClCompile Include="src\shader\ShaderTesting.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="includes\glad\glad.h" />
     <ClInclude Include="includes\KHR\khrplatform.h" />
     <ClInclude Include="src\Global.h" />
     <ClInclude Include="src\shader\Shader.h" />
-    <ClInclude Include="src\shader\ShaderTesting.h" />
+    <ClInclude Include="src\shader\ShaderFunctional.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="libs\glfw3.lib" />

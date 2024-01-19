@@ -5,5 +5,5 @@
 bool CreateVertexShader(const char* vertexShaderSource, unsigned int* vertexShader);
 bool CreateFragmentShader(const char* fragmentShaderSource, unsigned int* fragmentShader);
 
-bool CreateShader(const char* vertexShaderSource, const char* fragmentShaderSource, unsigned int* shaderProgram);
+bool CreateProgramShader(const char* vertexShaderSource, const char* fragmentShaderSource, unsigned int* shaderProgram);
 #endif

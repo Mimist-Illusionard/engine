@@ -1,4 +1,4 @@
-#include "shader/ShaderTesting.h"
+#include "shader/ShaderFunctional.hpp"
 #include "Global.h"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -26,12 +26,15 @@ int main()
         return -1;
     }
 
+
+    ShaderFunctional triangleShader;
+    triangleShader.InputVertex();
     while (!glfwWindowShouldClose(window))
     {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-
-        triangleShader();
+        
+        triangleShader.Draw(DrawMode::WAREFRAMEMODE);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
