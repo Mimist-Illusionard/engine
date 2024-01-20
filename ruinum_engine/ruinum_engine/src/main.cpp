@@ -27,18 +27,17 @@ int main()
         return -1;
     }
 
-
     Object triangle;
     triangle.InputVertex();
 
-    Shader redShader("D:/GitHub/engine/ruinum_engine/shaders/RedShader.vs", "D:/GitHub/engine/ruinum_engine/shaders/RedShader.fs");
+    Shader redShader("D:/GitHub/engine/ruinum_engine/resources/shaders/RedShader.vs", "D:/GitHub/engine/ruinum_engine/resources/shaders/RedShader.fs");
+    redShader.Use();
 
     while (!glfwWindowShouldClose(window))
     {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         
-        redShader.Use();
         triangle.Draw(DrawMode::SOLIDMODE);
 
         glfwSwapBuffers(window);
