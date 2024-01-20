@@ -1,10 +1,10 @@
-#include "shader/Object.hpp"
 #include "shader/Shader.hpp"
 #include "Global.h"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
-
+#include "Object.hpp"
+ 
 int main()
 {
     glfwInit();
