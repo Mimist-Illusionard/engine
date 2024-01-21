@@ -1,4 +1,7 @@
-#include "ShaderLoader.h"
+#ifndef SHADER
+#define SHADER
+
+#include "ShaderCreater.h"
 #include <glad/glad.h>
 
 #include <string>
@@ -83,3 +86,5 @@ void Shader::SetFloat(const std::string& name, float value) const
 Shader::~Shader()
 {
 }
+
+#endif

@@ -21,7 +21,7 @@
     <ClCompile Include="glad.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="src\shader\ShaderLoader.cpp">
+    <ClCompile Include="src\shader\ShaderCreater.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="stb_implementation.cpp">
@@ -44,7 +44,7 @@
     <ClInclude Include="src\shader\Shader.hpp">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="src\shader\ShaderLoader.h">
+    <ClInclude Include="src\shader\ShaderCreater.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="src\Object.hpp">
