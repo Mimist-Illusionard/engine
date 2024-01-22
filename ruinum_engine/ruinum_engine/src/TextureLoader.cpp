@@ -1,9 +1,10 @@
 #include "TextureLoader.h"
+#include "EditorUtilities.h"
+
 #include <iostream>
 
 void LoadTexture(const char *filename)
 {
-	//Texture initialization
 	unsigned int texture;
 	glGenTextures(1, &texture);
 	glBindTexture(GL_TEXTURE_2D, texture);
@@ -15,7 +16,7 @@ void LoadTexture(const char *filename)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 	int width, height, nrChannels;
-	unsigned char* data = stbi_load(filename, &width, &height, &nrChannels, 0);
+	unsigned char* data = stbi_load(GetTexture(filename), &width, &height, &nrChannels, 0);
 	if (data)
 	{
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);

@@ -1,9 +1,11 @@
-#include "shader/Shader.hpp"
-#include "Global.h"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include "shader/Shader.hpp"
+#include "Global.h"
 #include "Object.hpp"
+#include "EditorUtilities.h"
+
 
 int main()
 {
@@ -32,7 +34,7 @@ int main()
     Object triangle;
     triangle.InputVertex();
 
-    Shader redShader("S:/GraphicEngine/ruinum_engine/resources/shaders/RedShader.vert", "S:/GraphicEngine/ruinum_engine/resources/shaders/RedShader.frag");
+    Shader redShader("RedShader.vert", "RedShader.frag");
     redShader.Use();
     redShader.SetInt("texture1", 0);
 

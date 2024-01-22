@@ -2,10 +2,10 @@
 #define SHADER_FUNCTIONAL
 #include "TextureLoader.h"
 #include "Global.h"
+#include "../stb_image.h"
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include "../stb_image.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -53,7 +53,7 @@ void Object::InputVertex()
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
 
-	LoadTexture("S:/GraphicEngine/ruinum_engine/resources/textures/wall.jpg");
+	LoadTexture("wall.jpg");
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);

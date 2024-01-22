@@ -134,6 +134,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="glad.c" />
+    <ClCompile Include="src\EditorUtilities.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\shader\ShaderCreater.cpp" />
     <ClCompile Include="src\TextureLoader.cpp" />
@@ -142,6 +143,7 @@
   <ItemGroup>
     <ClInclude Include="includes\glad\glad.h" />
     <ClInclude Include="includes\KHR\khrplatform.h" />
+    <ClInclude Include="src\EditorUtilities.h" />
     <ClInclude Include="src\Global.h" />
     <ClInclude Include="src\Object.hpp" />
     <ClInclude Include="src\shader\Shader.hpp" />

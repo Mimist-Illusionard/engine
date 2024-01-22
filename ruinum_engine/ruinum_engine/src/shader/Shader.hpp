@@ -2,6 +2,7 @@
 #define SHADER
 
 #include "ShaderCreater.h"
+#include "EditorUtilities.h"
 #include <glad/glad.h>
 #include <glm/glm.hpp>
 
@@ -24,7 +25,7 @@ private:
 	unsigned int ID;
 };
 
-Shader::Shader(const char* vertexPath, const char* fragmentPath)
+Shader::Shader(const char* vertexShaderName, const char* fragmentShaderName)
 {
 	std::string vertexCode;
 	std::string fragmentCode;
@@ -37,8 +38,8 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath)
 
 	try
 	{
-		vertexShaderFile.open(vertexPath);
-		fragmentShaderFile.open(fragmentPath);
+		vertexShaderFile.open(GetShader(vertexShaderName));
+		fragmentShaderFile.open(GetShader(fragmentShaderName));
 		std::stringstream vertexShaderStream, fragmentShaderStream;
 
 		vertexShaderStream << vertexShaderFile.rdbuf();
