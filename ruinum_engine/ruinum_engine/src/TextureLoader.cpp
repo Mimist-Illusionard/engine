@@ -15,7 +15,6 @@ void LoadTexture(const char *filename)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 	int width, height, nrChannels;
-	
 	unsigned char* data = stbi_load(filename, &width, &height, &nrChannels, 0);
 	if (data)
 	{
