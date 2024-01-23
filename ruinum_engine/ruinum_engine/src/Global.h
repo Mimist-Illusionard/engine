@@ -1,10 +1,14 @@
-#ifndef GLOBAL
-#define GLOBAL
+#ifndef GLOBAL_H
+#define GLOBAL_H
 #include <glm/glm.hpp>
 
 // settings
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
+
+bool firstMouse = true;
+float lastMouseX;
+float lastMouseY;
 
 float vertices[] = {
     -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,

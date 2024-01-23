@@ -1,9 +1,14 @@
 #include "shader/Shader.hpp"
+#include "Object.hpp"
+#include "Camera.hpp"
+#include "TempModulFunction.h"
 #include "Global.h"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
-#include "Object.hpp"
+
+Camera camera({0.0f, 0.0f, 4.0f});
+void Mouse_callback(GLFWwindow*, double, double);
 
 int main()
 {
@@ -27,6 +32,10 @@ int main()
         return -1;
     }
 
+    glfwSetFramebufferSizeCallback(window, Framebuffer_size_callback);
+    glfwSetCursorPosCallback(window, Mouse_callback);
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
     glEnable(GL_DEPTH_TEST);
 
     Object triangle;
@@ -41,9 +50,10 @@ int main()
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
        
-        redShader.Use();
+        TimeRecquired();
 
-        glm::mat4 view = glm::mat4(1.0f);
+        redShader.Use();
+        glm::mat4 view = camera.SetViewMatix();
         glm::mat4 projection = glm::mat4(1.0f);
         projection = glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
         view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
@@ -66,4 +76,25 @@ int main()
     }
 
     return 0;
+}
+
+void Mouse_callback(GLFWwindow* window, double mouseX, double mouseY)
+{
+    float xpos = static_cast<float>(mouseX);
+    float ypos = static_cast<float>(mouseY);
+
+    if (firstMouse)
+    {
+        lastMouseX = xpos;
+        lastMouseY = ypos;
+        firstMouse = false;
+    }
+
+    float xoffset = xpos - lastMouseX;
+    float yoffset = ypos - lastMouseY;
+
+    lastMouseX = xpos;
+    lastMouseY = ypos;
+
+    camera.CameraMouseRotate(xoffset, yoffset);
 }

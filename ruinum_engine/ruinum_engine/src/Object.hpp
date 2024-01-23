@@ -1,5 +1,6 @@
-#ifndef SHADER_FUNCTIONAL
-#define SHADER_FUNCTIONAL
+#ifndef OBJECT_SHADER
+#define OBJECT_SHADER
+
 #include "TextureLoader.h"
 #include "Global.h"
 #include <iostream>
