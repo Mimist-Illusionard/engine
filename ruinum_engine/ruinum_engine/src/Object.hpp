@@ -13,8 +13,8 @@
 
 enum DrawMode
 {
-	SOLIDMODE = 0,
-	WAREFRAMEMODE = 1,
+	SOLID_MODE = 0,
+	WAREFRAME_MODE = 1,
 };
 
 class Object
@@ -64,8 +64,8 @@ void Object::Draw(int drawMode)
 {
 	switch (drawMode)
 	{
-		case SOLIDMODE: glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); break;
-		case WAREFRAMEMODE: glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); break;
+		case SOLID_MODE: glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); break;
+		case WAREFRAME_MODE: glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); break;
 	}
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 }

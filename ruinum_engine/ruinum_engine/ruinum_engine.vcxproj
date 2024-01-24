@@ -80,6 +80,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>includes;editor</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -108,6 +109,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>includes;editor</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -134,7 +136,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="glad.c" />
-    <ClCompile Include="src\Camera.hpp" />
+    <ClCompile Include="src\EditorUtilities.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\shader\ShaderCreater.cpp" />
     <ClCompile Include="src\TempModulFunction.cpp" />
@@ -144,6 +146,8 @@
   <ItemGroup>
     <ClInclude Include="includes\glad\glad.h" />
     <ClInclude Include="includes\KHR\khrplatform.h" />
+    <ClInclude Include="src\EditorUtilities.h" />
+    <ClInclude Include="src\editor\EditorCamera.hpp" />
     <ClInclude Include="src\Global.h" />
     <ClInclude Include="src\Object.hpp" />
     <ClInclude Include="src\shader\Shader.hpp" />
