@@ -136,24 +136,24 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="glad.c" />
-    <ClCompile Include="src\EditorUtilities.cpp" />
+    <ClCompile Include="src\editor\EditorUtilities.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\shader\ShaderCreater.cpp" />
-    <ClCompile Include="src\TempModulFunction.cpp" />
-    <ClCompile Include="src\TextureLoader.cpp" />
+    <ClCompile Include="src\editor\TextureLoader.cpp" />
     <ClCompile Include="stb_implementation.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="includes\glad\glad.h" />
     <ClInclude Include="includes\KHR\khrplatform.h" />
-    <ClInclude Include="src\EditorUtilities.h" />
     <ClInclude Include="src\editor\EditorCamera.hpp" />
+    <ClInclude Include="src\editor\EditorUtilities.h" />
     <ClInclude Include="src\Global.h" />
     <ClInclude Include="src\Object.hpp" />
+    <ClInclude Include="src\RenderObject.hpp" />
+    <ClInclude Include="src\SceneView.hpp" />
     <ClInclude Include="src\shader\Shader.hpp" />
     <ClInclude Include="src\shader\ShaderCreater.h" />
-    <ClInclude Include="src\TempModulFunction.h" />
-    <ClInclude Include="src\TextureLoader.h" />
+    <ClInclude Include="src\editor\TextureLoader.h" />
     <ClInclude Include="stb_image.h" />
   </ItemGroup>
   <ItemGroup>

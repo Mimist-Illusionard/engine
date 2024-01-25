@@ -1,5 +1,5 @@
-#ifndef EDITOR_CAMERA
-#define EDITOR_CAMERA
+#ifndef EDITOR_CAMERA_HPP
+#define EDITOR_CAMERA_HPP
 
 #include <glad/glad.h>
 #include <glm/glm.hpp>
@@ -43,7 +43,7 @@ public:
     void ProcessMouseScroll(float yoffset);
 
     EditorCamera(glm::vec3 position, glm::vec3 up, float yaw, float pitch);
-	~EditorCamera();
+    ~EditorCamera() {};
 
 private:
     void UpdateCameraVectors();
@@ -54,11 +54,8 @@ EditorCamera::EditorCamera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm
     Position = position;
     WorldUp = up;
     Yaw = yaw;
-    Pitch = pitch;    
-}
-
-EditorCamera::~EditorCamera()
-{
+    Pitch = pitch;
+    UpdateCameraVectors();
 }
 
 void EditorCamera::ProcessKeyboard(Input direction, float deltaTime)

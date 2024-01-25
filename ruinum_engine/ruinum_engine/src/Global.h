@@ -1,12 +1,14 @@
 #ifndef GLOBAL_H
 #define GLOBAL_H
 #include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 // settings
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
-const float vertices[] = {
+float vertices[] = 
+{
     -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
      0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
      0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
@@ -50,8 +52,10 @@ const float vertices[] = {
     -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
 };
 
-const glm::vec3 cubePositions[] = {
-    glm::vec3(5.0f,  0.0f,  0.0f),
+// world space positions of our cubes
+glm::vec3 cubePositions[] = 
+{
+    glm::vec3(0.0f,  0.0f,  0.0f),
     glm::vec3(2.0f,  5.0f, -15.0f),
     glm::vec3(-1.5f, -2.2f, -2.5f),
     glm::vec3(-3.8f, -2.0f, -12.3f),

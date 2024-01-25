@@ -1,5 +1,4 @@
 #include "TextureLoader.h"
-#include "EditorUtilities.h"
 
 #include <iostream>
 

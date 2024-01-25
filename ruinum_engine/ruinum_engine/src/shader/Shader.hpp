@@ -1,11 +1,11 @@
-#ifndef SHADER
-#define SHADER
+#ifndef SHADER_HPP
+#define SHADER_HPP
 
 #include "ShaderCreater.h"
-#include "EditorUtilities.h"
+#include "editor/TextureLoader.h"
+#include "editor/EditorUtilities.h"
 #include <glad/glad.h>
 #include <glm/glm.hpp>
-
 #include <string>
 #include <fstream>
 #include <sstream>
