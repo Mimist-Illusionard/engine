@@ -4,31 +4,37 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-// timing
-float deltaTime = 0.0f;	// time between current frame and last frame
+float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 
 class SceneView
 {
-	Object object;
-	//GLFWwindow* Window;
-	EditorCamera camera;
 public:
-	//SceneView(GLFWwindow* window) { Window = window; }
-	void MainCycle(GLFWwindow*);
+	void Initialize(EditorCamera camera);
+	void RenderScene(GLFWwindow*);
+private:
+	Object _object;
+	EditorCamera _camera;
 };
 
-void SceneView::MainCycle(GLFWwindow* Window)
+void SceneView::Initialize(EditorCamera camera) 
 {
-	while (!glfwWindowShouldClose(Window))
-	{
-		float currentFrame = static_cast<float>(glfwGetTime());
-		deltaTime = currentFrame - lastFrame;
-		lastFrame = currentFrame;
-
-		glfwSwapBuffers(Window);
-		glfwPollEvents();
-	}
+	_camera = camera;
+	_object = Object();
 }
 
-#endif // !SCENE_VIEW_HPP
+void SceneView::RenderScene(GLFWwindow* Window)
+{
+	float currentFrame = static_cast<float>(glfwGetTime());
+	deltaTime = currentFrame - lastFrame;
+	lastFrame = currentFrame;
+
+	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	_object.Draw(_camera);
+
+	glfwSwapBuffers(Window);
+	glfwPollEvents();
+}
+#endif

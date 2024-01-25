@@ -23,16 +23,16 @@ int main()
     {
         std::cout << "Failed to initialize GLAD" << std::endl;
         return -1;
-    }
-    
-   // glfwSetFramebufferSizeCallback(window, Framebuffer_size_callback);
-   // glfwSetCursorPosCallback(window, mouse_callback);
-    //glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    }   
 
     glEnable(GL_DEPTH_TEST);
     
     SceneView sceneView;
-    sceneView.MainCycle(window);
+
+    while (!glfwWindowShouldClose(window))
+    {
+        sceneView.RenderScene(window);
+    }
 
     glfwTerminate();
     return 0;

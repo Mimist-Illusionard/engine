@@ -1,5 +1,5 @@
-#ifndef SHADER_CREATER
-#define SHADER_CREATER
+#ifndef SHADER_CREATOR
+#define SHADER_CREATPR
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>

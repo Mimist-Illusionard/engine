@@ -1,7 +1,7 @@
 #ifndef SHADER_HPP
 #define SHADER_HPP
 
-#include "ShaderCreater.h"
+#include "ShaderCreator.h"
 #include "editor/TextureLoader.h"
 #include "editor/EditorUtilities.h"
 #include <glad/glad.h>
