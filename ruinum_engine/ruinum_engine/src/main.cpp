@@ -28,6 +28,8 @@ int main()
     glEnable(GL_DEPTH_TEST);
     
     SceneView sceneView;
+    EditorCamera camera;
+    sceneView.Initialize(camera);
 
     while (!glfwWindowShouldClose(window))
     {
