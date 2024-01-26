@@ -140,6 +140,7 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\shader\ShaderCreater.cpp" />
     <ClCompile Include="src\editor\TextureLoader.cpp" />
+    <ClCompile Include="src\shader\ShaderCreater.cpp" />
     <ClCompile Include="stb_implementation.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -153,6 +154,7 @@
     <ClInclude Include="src\shader\Shader.hpp" />
     <ClInclude Include="src\shader\ShaderCreater.h" />
     <ClInclude Include="src\editor\TextureLoader.h" />
+    <ClInclude Include="src\shader\ShaderCreator.h" />
     <ClInclude Include="stb_image.h" />
   </ItemGroup>
   <ItemGroup>

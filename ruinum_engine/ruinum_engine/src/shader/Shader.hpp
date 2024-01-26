@@ -1,7 +1,7 @@
 #ifndef SHADER
 #define SHADER
 
-#include "ShaderCreater.h"
+#include "ShaderCreator.h"
 #include "editor/EditorUtilities.h"
 #include <glad/glad.h>
 #include <glm/glm.hpp>
