@@ -1,3 +1,7 @@
+#ifndef EDITOR_UTILITIES
+#define EDITOR_UTILITIES
+
+#include "TextureLoader.h"
 #include <iostream>
 #include <cstring>
 #include <string.h>
@@ -36,3 +40,5 @@ char* GetTexture(const char* textureName)
 {
 	return CopyCatChars(GetTexturePath(), textureName);
 }
+
+#endif

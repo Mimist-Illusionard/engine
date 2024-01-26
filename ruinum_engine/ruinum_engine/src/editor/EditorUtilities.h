@@ -1,5 +1,5 @@
-#ifndef EDITOR_UTILITIES
-#define EDITOR_UTILITIES
+#ifndef EDITOR_UTILITIES_H
+#define EDITOR_UTILITIES_H
 
 #include <iostream>
 #include <cstring>
