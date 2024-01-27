@@ -1,4 +1,4 @@
-#include "ShaderCreater.h"
+#include "ShaderCreator.h"
 #include <iostream>
 
 int success;
