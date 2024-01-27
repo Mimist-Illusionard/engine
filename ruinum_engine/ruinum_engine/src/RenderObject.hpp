@@ -23,13 +23,15 @@ public:
 	~RenderObject();
 	void InputVertex();
 	void Draw(int);
-	void BindVAO() {glBindVertexArray(VAO);}
+	void BindVAO() { glBindVertexArray(VAO); }
 };
 
 RenderObject::RenderObject()
 {
 	glGenBuffers(1, &VBO);
 	glGenVertexArrays(1, &VAO);
+
+	InputVertex();
 }
  
 RenderObject::~RenderObject()

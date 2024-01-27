@@ -109,7 +109,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>includes;editor</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>includes;editor;core</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -145,11 +145,13 @@
   <ItemGroup>
     <ClInclude Include="includes\glad\glad.h" />
     <ClInclude Include="includes\KHR\khrplatform.h" />
+    <ClInclude Include="src\core\Transform.hpp" />
+    <ClInclude Include="src\Object.hpp" />
     <ClInclude Include="src\editor\EditorUtilities.h" />
     <ClInclude Include="src\editor\EditorCamera.hpp" />
     <ClInclude Include="src\Global.h" />
-    <ClInclude Include="src\Object.hpp" />
     <ClInclude Include="src\OpenGLWindow.hpp" />
+    <ClInclude Include="src\RenderObject.hpp" />
     <ClInclude Include="src\shader\Shader.hpp" />
     <ClInclude Include="src\shader\ShaderCreator.h" />
     <ClInclude Include="src\editor\TextureLoader.h" />

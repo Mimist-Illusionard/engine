@@ -7,8 +7,8 @@
 
 #include "Global.h"
 #include "shader/Shader.hpp"
-#include "Object.hpp"
 #include "editor/EditorCamera.hpp"
+#include "Object.hpp"
 
 class OpenGLWindow
 {
@@ -64,13 +64,11 @@ GLFWwindow* OpenGLWindow::CreateWindow()
 }
 
 void OpenGLWindow::Render(GLFWwindow* window)
-{
-    Object triangle;
-    triangle.InputVertex();
-
-    Shader redShader("RedShader.vert", "RedShader.frag");
-    redShader.Use();
-    redShader.SetInt("texture1", 0);
+{  
+    Transform transform;
+    transform.Position = glm::vec3(0.0f, 0.0f, 0.0f);
+    transform.Angle = 30;
+    Object cube(transform);
 
     while (!glfwWindowShouldClose(window))
     {;
@@ -81,26 +79,15 @@ void OpenGLWindow::Render(GLFWwindow* window)
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        Input(window);
-
-        redShader.Use();
-        glm::mat4 view = _camera.GetViewMatrix();
-        glm::mat4 projection = glm::mat4(1.0f);
-        projection = glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-        view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
-        redShader.SetMat4("projection", projection);
-        redShader.SetMat4("view", view);
-
-        triangle.BindVAO();
         for (int i = 0; i < 10; i++)
         {
-            float angle = 30.0f * i;
-            glm::mat4 model = glm::mat4(1.0f);
-            model = glm::translate(model, cubePositions[i]);
-            model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
-            redShader.SetMat4("model", model);
-            triangle.Draw(DrawMode::SOLID_MODE);
+            cube.SetPosition(cubePositions[i]);
+            cube.SetAngle(30 * i);
+
+            cube.Draw(_camera);
         }
+
+        Input(window);       
 
         glfwSwapBuffers(window);
         glfwPollEvents();

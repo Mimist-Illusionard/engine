@@ -1,73 +1,62 @@
-#ifndef OBJECT
-#define OBJECT
+#ifndef CUBE_HPP
+#define CUBE_HPP
+#include "RenderObject.hpp"
+#include "shader/Shader.hpp"
+#include "editor/EditorCamera.hpp"
+#include "core/Transform.hpp"
 
-#include "editor/TextureLoader.h"
-#include "Global.h"
-#include "../stb_image.h"
 #include <iostream>
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-enum DrawMode
-{
-	SOLID_MODE = 0,
-	WAREFRAME_MODE = 1,
-};
-
 class Object
 {
-	unsigned int VBO, VAO;
+private:
+    Transform _transform;
+    Shader _shader { "RedShader.vert", "RedShader.frag" };
+    RenderObject _render;
 public:
-	Object();
-	~Object();
-	void InputVertex();
-	void Draw(int);
-	void BindVAO() {glBindVertexArray(VAO);}
+    Object(Transform);
+    void Draw(EditorCamera);
+    void SetPosition(glm::vec3);
+    void SetAngle(float);
+    Transform GetTransform() { return _transform; }
 };
 
-Object::Object()
+void Object::Draw(EditorCamera camera)
 {
-	glGenBuffers(1, &VBO);
-	glGenVertexArrays(1, &VAO);
-}
- 
-Object::~Object()
-{
-	glDeleteVertexArrays(1, &VAO);
-	glDeleteBuffers(1, &VBO);
-}
+    _shader.Use();
+    glm::mat4 view = camera.GetViewMatrix();
+    glm::mat4 projection = glm::mat4(1.0f);
+    projection = glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+    view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+    _shader.SetMat4("projection", projection);
+    _shader.SetMat4("view", view);
 
-void Object::InputVertex()
-{
-	glBindVertexArray(VAO);
+    _render.BindVAO();
 
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    float angle = 30.0f;
+    glm::mat4 model = glm::mat4(1.0f);
 
-	// position attribute
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(0);
-	// texture coords attribute
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-	glEnableVertexAttribArray(1);
-
-	LoadTexture("wall.jpg");
-
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindVertexArray(0);
+    model = glm::translate(model, _transform.Position);
+    model = glm::rotate(model, glm::radians(_transform.Angle), glm::vec3(1.0f, 0.3f, 0.5f));
+    _shader.SetMat4("model", model);
+    _render.Draw(DrawMode::SOLID_MODE);
 }
 
-void Object::Draw(int drawMode)
+void Object::SetPosition(glm::vec3 position) 
 {
-	switch (drawMode)
-	{
-		case SOLID_MODE: glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); break;
-		case WAREFRAME_MODE: glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); break;
-	}
-	glDrawArrays(GL_TRIANGLES, 0, 36);
+    _transform.Position = position;
 }
 
+void Object::SetAngle(float angle)
+{
+    _transform.Angle = angle;
+}
+
+Object::Object(Transform transform)
+{
+    _transform = transform;
+}
 #endif
