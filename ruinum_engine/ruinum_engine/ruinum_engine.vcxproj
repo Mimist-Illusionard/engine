@@ -146,7 +146,9 @@
     <ClInclude Include="includes\glad\glad.h" />
     <ClInclude Include="includes\KHR\khrplatform.h" />
     <ClInclude Include="src\core\Transform.hpp" />
-    <ClInclude Include="src\Object.hpp" />
+    <ClInclude Include="src\objects\ColorCube.hpp" />
+    <ClInclude Include="src\objects\Light.hpp" />
+    <ClInclude Include="src\objects\TexturedCube.hpp" />
     <ClInclude Include="src\editor\EditorUtilities.h" />
     <ClInclude Include="src\editor\EditorCamera.hpp" />
     <ClInclude Include="src\Global.h" />

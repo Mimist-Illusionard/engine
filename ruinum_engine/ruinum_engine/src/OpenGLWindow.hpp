@@ -8,7 +8,10 @@
 #include "Global.h"
 #include "shader/Shader.hpp"
 #include "editor/EditorCamera.hpp"
-#include "Object.hpp"
+#include "core/Transform.hpp"
+#include "objects/TexturedCube.hpp"
+#include "objects/Light.hpp"
+#include "objects/ColorCube.hpp"
 
 class OpenGLWindow
 {
@@ -65,11 +68,14 @@ GLFWwindow* OpenGLWindow::CreateWindow()
 
 void OpenGLWindow::Render(GLFWwindow* window)
 {  
-    Transform transform;
-    transform.Position = glm::vec3(0.0f, 0.0f, 0.0f);
-    transform.Angle = 30;
-    Object cube(transform);
+    Light light;
+    light.SetPosition(glm::vec3(-1,0,0));
+    light.SetScale(glm::vec3(0.2, 0.2, 0.2));
 
+    ColorCube colorCube;
+    colorCube.SetPosition(glm::vec3(0, 0, -2));
+
+    TexturedCube cube;
     while (!glfwWindowShouldClose(window))
     {;
         float currentFrame = static_cast<float>(glfwGetTime());
@@ -79,13 +85,16 @@ void OpenGLWindow::Render(GLFWwindow* window)
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        for (int i = 0; i < 10; i++)
+        light.Draw(_camera);
+        colorCube.Draw(_camera);
+
+        /*for (int i = 0; i < 10; i++)
         {
             cube.SetPosition(cubePositions[i]);
             cube.SetAngle(30 * i);
 
             cube.Draw(_camera);
-        }
+        }*/
 
         Input(window);       
 
