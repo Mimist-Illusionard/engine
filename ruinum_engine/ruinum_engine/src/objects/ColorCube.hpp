@@ -20,9 +20,9 @@ private:
 public:
     ColorCube();
     void Draw(EditorCamera);
-    void SetPosition(glm::vec3);
-    void SetScale(glm::vec3);
-    void SetAngle(float);
+
+    Shader& GetShader() { return _shader; }
+    Transform& GetTransform() { return _transform; }
 };
 
 void ColorCube::Draw(EditorCamera camera)
@@ -53,20 +53,5 @@ ColorCube::ColorCube()
     _shader.Use();
     _shader.SetVec3("objectColor", 1.0f, 0.5f, 0.31f);
     _shader.SetVec3("lightColor", 1.0f, 1.0f, 1.0f);
-}
-
-void ColorCube::SetPosition(glm::vec3 position)
-{
-    _transform.Position = position;
-}
-
-void ColorCube::SetScale(glm::vec3 scale)
-{
-    _transform.Scale = scale;
-}
-
-void ColorCube::SetAngle(float angle)
-{
-    _transform.Angle = angle;
 }
 #endif

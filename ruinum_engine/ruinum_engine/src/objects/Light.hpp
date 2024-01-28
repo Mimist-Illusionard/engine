@@ -18,10 +18,11 @@ private:
     Shader _shader { "LightCube.vert", "LightCube.frag" };
     RenderObject _render;
 public:
-    void Draw(EditorCamera);
-    void SetPosition(glm::vec3);
-    void SetScale(glm::vec3);
-    void SetAngle(float);
+    Light(){};
+    void Draw(EditorCamera);    
+    
+    Shader& GetShader() { return _shader; }
+    Transform& GetTransform() { return _transform; }
 };
 
 void Light::Draw(EditorCamera camera)
@@ -45,20 +46,5 @@ void Light::Draw(EditorCamera camera)
 
     _shader.SetMat4("model", model);
     _render.Draw(DrawMode::SOLID_MODE);
-}
-
-void Light::SetPosition(glm::vec3 position)
-{
-    _transform.Position = position;
-}
-
-void Light::SetScale(glm::vec3 scale)
-{
-    _transform.Scale = scale;
-}
-
-void Light::SetAngle(float angle)
-{
-    _transform.Angle = angle;
 }
 #endif

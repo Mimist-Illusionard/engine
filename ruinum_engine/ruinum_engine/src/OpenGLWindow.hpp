@@ -69,11 +69,12 @@ GLFWwindow* OpenGLWindow::CreateWindow()
 void OpenGLWindow::Render(GLFWwindow* window)
 {  
     Light light;
-    light.SetPosition(glm::vec3(-1,0,0));
-    light.SetScale(glm::vec3(0.2, 0.2, 0.2));
+    light.GetTransform().Position = glm::vec3(-1, 0, 0);
+    light.GetTransform().Scale = glm::vec3(0.2, 0.2, 0.2);
 
     ColorCube colorCube;
-    colorCube.SetPosition(glm::vec3(0, 0, -2));
+    colorCube.GetTransform().Position = glm::vec3(0, 0, -2);
+    colorCube.GetShader().SetVec3("lightPos", light.GetTransform().Position);
 
     TexturedCube cube;
     while (!glfwWindowShouldClose(window))
@@ -85,16 +86,17 @@ void OpenGLWindow::Render(GLFWwindow* window)
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        light.Draw(_camera);
-        colorCube.Draw(_camera);
+        //light.Draw(_camera);
+        //colorCube.Draw(_camera);
 
-        /*for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 10; i++)
         {
-            cube.SetPosition(cubePositions[i]);
-            cube.SetAngle(30 * i);
+            Transform& cubeTransform = cube.GetTransform();
+            cubeTransform.Position = cubePositions[i];
+            cubeTransform.Angle = 30 * i;
 
             cube.Draw(_camera);
-        }*/
+        }
 
         Input(window);       
 

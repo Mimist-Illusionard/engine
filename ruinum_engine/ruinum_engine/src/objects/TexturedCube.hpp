@@ -18,10 +18,11 @@ private:
     Shader _shader { "TextureCube.vert", "TextureCube.frag" };
     RenderObject _render;
 public:
+    TexturedCube() {};
     void Draw(EditorCamera);
-    void SetPosition(glm::vec3);
-    void SetScale(glm::vec3);
-    void SetAngle(float);
+
+    Shader& GetShader() { return _shader; }
+    Transform& GetTransform() { return _transform; }
 };
 
 void TexturedCube::Draw(EditorCamera camera)
@@ -46,20 +47,5 @@ void TexturedCube::Draw(EditorCamera camera)
 
     _shader.SetMat4("model", model);
     _render.Draw(DrawMode::SOLID_MODE);
-}
-
-void TexturedCube::SetPosition(glm::vec3 position) 
-{
-    _transform.Position = position;
-}
-
-void TexturedCube::SetScale(glm::vec3 scale)
-{
-    _transform.Scale = scale;
-}
-
-void TexturedCube::SetAngle(float angle)
-{
-    _transform.Angle = angle;
 }
 #endif
