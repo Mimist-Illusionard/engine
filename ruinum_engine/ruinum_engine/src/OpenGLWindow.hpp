@@ -12,14 +12,19 @@
 #include "objects/SceneObject.hpp"
 #include "objects/ColorCube.hpp"
 
+EditorCamera Camera{ { 0.0f, 0.0f, 4.0f } };
+
+void FramebufferCallback(GLFWwindow* window, int width, int height);
+void MouseCallback(GLFWwindow* window, double xpos, double ypos);
+void ScrollCallback(GLFWwindow* window, double xoffset, double yoffset);
+
 class OpenGLWindow
 {
-public:
+public:    
     GLFWwindow* CreateWindow();
 	void Render(GLFWwindow* window);
 
 private:
-    EditorCamera _camera { { 0.0f, 0.0f, 4.0f } };
     float _deltaTime = 0.0f;
     float _lastFrame = 0.0f;
 
@@ -46,7 +51,11 @@ GLFWwindow* OpenGLWindow::CreateWindow()
         std::cout << "Failed to initialize GLAD" << std::endl;
     }
 
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+    glfwSetFramebufferSizeCallback(window, FramebufferCallback);
+    glfwSetCursorPosCallback(window, MouseCallback);
+    glfwSetScrollCallback(window, ScrollCallback);
+
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     glfwSwapInterval(1);
 
     glEnable(GL_DEPTH_TEST);
@@ -74,8 +83,8 @@ void OpenGLWindow::Render(GLFWwindow* window)
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        light.Draw(_camera);
-        colorCube.Draw(_camera);
+        light.Draw(Camera);
+        colorCube.Draw(Camera);
 
         for (int i = 0; i < 10; i++)
         {
@@ -83,7 +92,7 @@ void OpenGLWindow::Render(GLFWwindow* window)
             cubeTransform.Position = cubePositions[i];
             cubeTransform.Angle = 30 * i;
 
-            cube.Draw(_camera);
+            cube.Draw(Camera);
         }
 
         Input(window);       
@@ -101,12 +110,28 @@ void OpenGLWindow::Input(GLFWwindow* window)
         glfwSetWindowShouldClose(window, true);
 
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        _camera.ProcessKeyboard(FORWARD, _deltaTime);
+        Camera.ProcessKeyboard(FORWARD, _deltaTime);
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        _camera.ProcessKeyboard(BACKWARDS, _deltaTime);
+        Camera.ProcessKeyboard(BACKWARDS, _deltaTime);
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        _camera.ProcessKeyboard(LEFT, _deltaTime);
+        Camera.ProcessKeyboard(LEFT, _deltaTime);
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        _camera.ProcessKeyboard(RIGHT, _deltaTime);
+        Camera.ProcessKeyboard(RIGHT, _deltaTime);
 }
+
+void FramebufferCallback(GLFWwindow* window, int width, int height)
+{
+    glViewport(0, 0, width, height);
+}
+
+void MouseCallback(GLFWwindow* window, double xposIn, double yposIn)
+{
+    Camera.ProcessMouseLook(xposIn, yposIn);    
+}
+
+void ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
+{
+    Camera.ProcessMouseScroll(yoffset);
+}
+
 #endif

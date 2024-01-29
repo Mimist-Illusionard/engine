@@ -37,8 +37,7 @@ void Object::Draw(EditorCamera camera)
     _shader.Use();
 
     glm::mat4 view = camera.GetViewMatrix();
-    glm::mat4 projection = glm::mat4(1.0f);
-    projection = glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+    glm::mat4 projection = glm::perspective(glm::radians(camera.Fov), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
     view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
 
     _shader.SetMat4("projection", projection);
@@ -54,4 +53,4 @@ void Object::Draw(EditorCamera camera)
     _shader.SetMat4("model", model);
     _render.Draw(DrawMode::SOLID_MODE);
 }
-#endif //OBJECT_HPP
+#endif
