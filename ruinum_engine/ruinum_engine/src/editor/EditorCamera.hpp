@@ -7,7 +7,8 @@
 
 #include <vector>
 
-enum Input {
+enum Input 
+{
     FORWARD,
     BACKWARDS,
     LEFT,
@@ -36,7 +37,7 @@ public:
     float MouseSensitivity;
     float Zoom;
 
-    glm::mat4 GetViewMatrix();
+    glm::mat4 GetViewMatrix() { return glm::lookAt(Position, Position + Front, Up); }
     void ProcessKeyboard(Input direction, float deltaTime);
     void ProcessMouseMovement(float xoffset, float yoffset);
     void ProcessMouseScroll(float yoffset);
@@ -68,11 +69,6 @@ void EditorCamera::ProcessKeyboard(Input direction, float deltaTime)
         Position -= Right * velocity;
     if (direction == RIGHT)
         Position += Right * velocity;
-}
-
-glm::mat4 EditorCamera::GetViewMatrix()
-{
-    return glm::lookAt(Position, Position + Front, Up);
 }
 
 void EditorCamera::ProcessMouseMovement(float xoffset, float yoffset)

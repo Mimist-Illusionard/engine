@@ -13,9 +13,11 @@
 
 class Shader
 {
+	unsigned int ID;
 public:
+	Shader() {};
 	Shader(const char* vertexPath, const char* fragmentPath);
-	void Use();
+	void Use() { glUseProgram(ID); }
 
 	void SetBool(const std::string& name, bool value) const;
 	void SetInt(const std::string& name, int value) const;
@@ -31,8 +33,6 @@ public:
 	void SetMat2(const std::string& name, const glm::mat2& mat) const;
 	void SetMat3(const std::string& name, const glm::mat3& mat) const;
 	void SetMat4(const std::string& name, const glm::mat4& mat) const;
-private:
-	unsigned int ID;
 };
 
 Shader::Shader(const char* vertexShaderName, const char* fragmentShaderName)
@@ -73,11 +73,6 @@ Shader::Shader(const char* vertexShaderName, const char* fragmentShaderName)
 	{
 		std::cout << "Error in creating shader" << std::endl;
 	}
-}
-
-void Shader::Use() 
-{
-	glUseProgram(ID);
 }
 
 void Shader::SetBool(const std::string& name, bool value) const

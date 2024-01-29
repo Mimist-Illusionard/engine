@@ -9,16 +9,12 @@
 #include "shader/Shader.hpp"
 #include "editor/EditorCamera.hpp"
 #include "core/Transform.hpp"
-#include "objects/TexturedCube.hpp"
-#include "objects/Light.hpp"
+#include "objects/SceneObject.hpp"
 #include "objects/ColorCube.hpp"
 
 class OpenGLWindow
 {
 public:
-	OpenGLWindow();
-	~OpenGLWindow();
-
     GLFWwindow* CreateWindow();
 	void Render(GLFWwindow* window);
 
@@ -29,14 +25,6 @@ private:
 
     void Input(GLFWwindow* window);
 };
-
-OpenGLWindow::OpenGLWindow()
-{
-}
-
-OpenGLWindow::~OpenGLWindow()
-{
-}
 
 GLFWwindow* OpenGLWindow::CreateWindow()
 {
@@ -68,15 +56,15 @@ GLFWwindow* OpenGLWindow::CreateWindow()
 
 void OpenGLWindow::Render(GLFWwindow* window)
 {  
-    Light light;
+    SceneObject light{ "LightCube.vert", "LightCube.frag" };
     light.GetTransform().Position = glm::vec3(-1, 0, 0);
     light.GetTransform().Scale = glm::vec3(0.2, 0.2, 0.2);
-
-    ColorCube colorCube;
+    
+    ColorCube colorCube{ "Colors.vert", "Colors.frag" };
     colorCube.GetTransform().Position = glm::vec3(0, 0, -2);
     colorCube.GetShader().SetVec3("lightPos", light.GetTransform().Position);
 
-    TexturedCube cube;
+    SceneObject cube{ "TextureCube.vert", "TextureCube.frag" };
     while (!glfwWindowShouldClose(window))
     {;
         float currentFrame = static_cast<float>(glfwGetTime());
@@ -86,8 +74,8 @@ void OpenGLWindow::Render(GLFWwindow* window)
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        //light.Draw(_camera);
-        //colorCube.Draw(_camera);
+        light.Draw(_camera);
+        colorCube.Draw(_camera);
 
         for (int i = 0; i < 10; i++)
         {
