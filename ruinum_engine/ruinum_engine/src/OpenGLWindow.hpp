@@ -66,11 +66,12 @@ GLFWwindow* OpenGLWindow::CreateWindow()
 void OpenGLWindow::Render(GLFWwindow* window)
 {  
     SceneObject light{ "LightCube.vert", "LightCube.frag" };
-    light.GetTransform().Position = glm::vec3(-1, 0, 0);
+    light.GetTransform().Position = glm::vec3(1.2f, 1.0f, 1.2f);
     light.GetTransform().Scale = glm::vec3(0.2, 0.2, 0.2);
+    light.GetTransform().Angle = 0;
     
     ColorCube colorCube{ "Colors.vert", "Colors.frag" };
-    colorCube.GetTransform().Position = glm::vec3(0, 0, -2);
+    colorCube.GetTransform().Position = glm::vec3(0, 0, 0);
     colorCube.GetShader().SetVec3("lightPos", light.GetTransform().Position);
 
     SceneObject cube{ "TextureCube.vert", "TextureCube.frag" };
@@ -92,7 +93,7 @@ void OpenGLWindow::Render(GLFWwindow* window)
             cubeTransform.Position = cubePositions[i];
             cubeTransform.Angle = 30 * i;
 
-            cube.Draw(Camera);
+            //cube.Draw(Camera);
         }
 
         Input(window);       

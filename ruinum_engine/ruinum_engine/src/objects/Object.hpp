@@ -20,7 +20,8 @@ protected:
     RenderObject _render;
 public:
     Object(const char*, const char*);
-	void Draw(EditorCamera);
+    void Draw(EditorCamera);
+    virtual void DrawLogic(EditorCamera) { }
 
     Shader& GetShader() { return _shader; }
     Transform& GetTransform() { return _transform; }
@@ -52,5 +53,7 @@ void Object::Draw(EditorCamera camera)
 
     _shader.SetMat4("model", model);
     _render.Draw(DrawMode::SOLID_MODE);
+
+    DrawLogic(camera);
 }
 #endif

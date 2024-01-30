@@ -12,5 +12,12 @@ public:
         _shader.SetVec3("objectColor", 1.0f, 0.5f, 0.31f);
         _shader.SetVec3("lightColor", 1.0f, 1.0f, 1.0f);
     }
+
+    void DrawLogic(EditorCamera camera);
 };
+
+void ColorCube::DrawLogic(EditorCamera camera)
+{
+    _shader.SetVec3("viewPos", camera.Position);
+}
 #endif
