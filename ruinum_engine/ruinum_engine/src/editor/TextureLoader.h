@@ -4,5 +4,5 @@
 #include <GLFW/glfw3.h>
 #include "../stb_image.h"
 
-void LoadTexture(const char* filename);
+void LoadTexture(const char* filename, int active);
 #endif

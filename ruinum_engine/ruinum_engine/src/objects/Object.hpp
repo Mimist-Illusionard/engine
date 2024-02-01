@@ -32,6 +32,7 @@ public:
     Transform& GetTransform() { return _transform; }
     Shader& GetShader() { return _shader; }
     Material& GetMaterial() { return _material; }
+    RenderObject& GetRender() { return _render; }
 };
 
 Object::Object(const char* vert, const char* frag)

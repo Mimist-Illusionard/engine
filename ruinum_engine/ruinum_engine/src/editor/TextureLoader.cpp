@@ -3,10 +3,12 @@
 
 #include <iostream>
 
-void LoadTexture(const char *filename)
+void LoadTexture(const char *filename, int active)
 {
 	unsigned int texture;
 	glGenTextures(1, &texture);
+
+	glActiveTexture(active);
 	glBindTexture(GL_TEXTURE_2D, texture);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);

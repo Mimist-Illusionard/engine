@@ -23,6 +23,8 @@ public:
 	~RenderObject();
 	void InputVertex();
 	void Draw(int);
+	void LoadDiffuse(const char*);
+	void LoadSpecular(const char*);
 	void BindVAO() { glBindVertexArray(VAO); }
 };
 
@@ -60,11 +62,12 @@ void RenderObject::InputVertex()
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
 	glEnableVertexAttribArray(2);
 
-	LoadTexture("wall.jpg");
-
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 }
+
+void RenderObject::LoadDiffuse(const char* name) { LoadTexture(name, GL_TEXTURE0); }
+void RenderObject::LoadSpecular(const char* name) { LoadTexture(name, GL_TEXTURE1); }
 
 void RenderObject::Draw(int drawMode)
 {

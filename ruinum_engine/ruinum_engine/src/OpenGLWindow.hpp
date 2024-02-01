@@ -81,6 +81,9 @@ void OpenGLWindow::Render(GLFWwindow* window)
     ColorCube colorCube{ "Colors.vert", "Colors.frag" };
     colorCube.GetTransform().Position = vec3(0, 0, 0);
 
+    colorCube.GetRender().LoadDiffuse("container.jpg");
+    colorCube.GetRender().LoadSpecular("container_specular.jpg");
+
     Material& cubeMaterial = colorCube.GetMaterial();
     cubeMaterial.Ambient = vec3(1.0f, 0.5f, 0.31f);
     cubeMaterial.Diffuse = vec3(1.0f, 0.5f, 0.31f);
@@ -95,7 +98,9 @@ void OpenGLWindow::Render(GLFWwindow* window)
     colorCubeShader.SetVec3("light.diffuse", lightMaterial.Diffuse);
     colorCubeShader.SetVec3("light.specular", lightMaterial.Specular);
 
-    colorCubeShader.SetVec3("material.specular", 0.5f, 0.5f, 0.5f);
+    colorCubeShader.SetInt("material.diffuse", 0);
+    colorCubeShader.SetInt("material.specular", 1);
+
     colorCubeShader.SetFloat("material.shininess", 64.0f);
 
     SceneObject cube{ "TextureCube.vert", "TextureCube.frag" };
