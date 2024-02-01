@@ -12,6 +12,8 @@
 #include "objects/SceneObject.hpp"
 #include "objects/ColorCube.hpp"
 
+using namespace glm;
+
 EditorCamera Camera{ { 0.0f, 0.0f, 4.0f } };
 
 void FramebufferCallback(GLFWwindow* window, int width, int height);
@@ -66,13 +68,35 @@ GLFWwindow* OpenGLWindow::CreateWindow()
 void OpenGLWindow::Render(GLFWwindow* window)
 {  
     SceneObject light{ "LightCube.vert", "LightCube.frag" };
-    light.GetTransform().Position = glm::vec3(1.2f, 1.0f, 1.2f);
-    light.GetTransform().Scale = glm::vec3(0.2, 0.2, 0.2);
+    light.GetTransform().Position = vec3(1.2f, 1.0f, 1.2f);
+    light.GetTransform().Scale = vec3(0.2, 0.2, 0.2);
     light.GetTransform().Angle = 0;
+
+    Material& lightMaterial = light.GetMaterial();
+    lightMaterial.Color = vec3(1.0f, 1.0f, 1.0f);
+    lightMaterial.Diffuse = lightMaterial.Color * vec3(0.5f);
+    lightMaterial.Ambient = lightMaterial.Color * vec3(0.2f);
+    lightMaterial.Specular = vec3(1.0f);
     
     ColorCube colorCube{ "Colors.vert", "Colors.frag" };
-    colorCube.GetTransform().Position = glm::vec3(0, 0, 0);
-    colorCube.GetShader().SetVec3("lightPos", light.GetTransform().Position);
+    colorCube.GetTransform().Position = vec3(0, 0, 0);
+
+    Material& cubeMaterial = colorCube.GetMaterial();
+    cubeMaterial.Ambient = vec3(1.0f, 0.5f, 0.31f);
+    cubeMaterial.Diffuse = vec3(1.0f, 0.5f, 0.31f);
+    cubeMaterial.Specular = vec3(0.5f, 0.5f, 0.5f);
+    cubeMaterial.Shininess = 32.0f;
+
+    colorCube.RefreshMaterial();
+
+    Shader& colorCubeShader = colorCube.GetShader();
+    colorCubeShader.SetVec3("light.position", light.GetTransform().Position);
+    colorCubeShader.SetVec3("light.ambient", lightMaterial.Ambient);
+    colorCubeShader.SetVec3("light.diffuse", lightMaterial.Diffuse);
+    colorCubeShader.SetVec3("light.specular", lightMaterial.Specular);
+
+    colorCubeShader.SetVec3("material.specular", 0.5f, 0.5f, 0.5f);
+    colorCubeShader.SetFloat("material.shininess", 64.0f);
 
     SceneObject cube{ "TextureCube.vert", "TextureCube.frag" };
     while (!glfwWindowShouldClose(window))

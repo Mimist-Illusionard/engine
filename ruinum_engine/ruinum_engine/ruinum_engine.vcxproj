@@ -145,6 +145,7 @@
   <ItemGroup>
     <ClInclude Include="includes\glad\glad.h" />
     <ClInclude Include="includes\KHR\khrplatform.h" />
+    <ClInclude Include="src\core\Material.hpp" />
     <ClInclude Include="src\core\Transform.hpp" />
     <ClInclude Include="src\objects\ColorCube.hpp" />
     <ClInclude Include="src\objects\SceneObject.hpp" />

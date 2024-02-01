@@ -2,6 +2,7 @@
 #define OBJECT_HPP
 
 #include "../core/Transform.hpp"
+#include "../core/Material.hpp"
 #include "../shader/Shader.hpp"
 #include "../RenderObject.hpp"
 #include "../editor/EditorCamera.hpp"
@@ -18,13 +19,19 @@ protected:
     Transform _transform;
     Shader _shader;
     RenderObject _render;
+    Material _material;
+
+    virtual void DrawLogic(EditorCamera) { }
+    virtual void MaterialSetted(Material) { }
 public:
     Object(const char*, const char*);
     void Draw(EditorCamera);
-    virtual void DrawLogic(EditorCamera) { }
+    void SetMaterial(Material);
+    void RefreshMaterial();
 
-    Shader& GetShader() { return _shader; }
     Transform& GetTransform() { return _transform; }
+    Shader& GetShader() { return _shader; }
+    Material& GetMaterial() { return _material; }
 };
 
 Object::Object(const char* vert, const char* frag)
@@ -55,5 +62,16 @@ void Object::Draw(EditorCamera camera)
     _render.Draw(DrawMode::SOLID_MODE);
 
     DrawLogic(camera);
+}
+
+void Object::SetMaterial(Material material) 
+{
+    _material = material; 
+    MaterialSetted(material);
+}
+
+void Object::RefreshMaterial() 
+{
+    MaterialSetted(_material);
 }
 #endif

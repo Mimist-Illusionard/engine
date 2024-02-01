@@ -2,6 +2,7 @@
 #define SCENEOBJECT_HPP
 
 #include "../core/Transform.hpp"
+#include "../core/Material.hpp"
 #include "../shader/Shader.hpp"
 #include "../RenderObject.hpp"
 #include "../editor/EditorCamera.hpp"
@@ -11,6 +12,9 @@
 class SceneObject : public Object
 {
 public:
-    SceneObject(const char* vert, const char* frag) : Object(vert, frag) {};
+
+    SceneObject(const char* vert, const char* frag);
 };
+
+SceneObject::SceneObject(const char* vert, const char* frag) : Object(vert, frag) {}
 #endif
