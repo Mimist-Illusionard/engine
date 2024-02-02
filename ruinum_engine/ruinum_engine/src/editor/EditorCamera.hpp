@@ -8,6 +8,8 @@
 
 #include "objects/LightObject.hpp"
 
+using namespace glm;
+
 enum Input 
 {
     FORWARD,
@@ -27,11 +29,11 @@ class EditorCamera
 public:
     LightObject Light;
 
-    glm::vec3 Position;
-    glm::vec3 Front;
-    glm::vec3 Up;
-    glm::vec3 Right;
-    glm::vec3 WorldUp;
+    vec3 Position;
+    vec3 Front;
+    vec3 Up;
+    vec3 Right;
+    vec3 WorldUp;
 
     float Yaw;
     float Pitch;
@@ -44,13 +46,13 @@ public:
     float LastX = 800.0f / 2.0;
     float LastY = 600.0 / 2.0;
 
-    glm::mat4 GetViewMatrix() { return glm::lookAt(Position, Position + Front, Up); }
+    mat4 GetViewMatrix() { return lookAt(Position, Position + Front, Up); }
     void ProcessKeyboard(Input direction, float deltaTime);
     void ProcessMouseScroll(float yoffset);
     void ProcessMouseLook(double x, double y);
     void ProcessMouseMovement(float xoffset, float yoffset);
 
-    EditorCamera(glm::vec3 position, glm::vec3 up, float yaw, float pitch);
+    EditorCamera(vec3 position, vec3 up, float yaw, float pitch);
     ~EditorCamera() {};
 
 private:
@@ -58,7 +60,7 @@ private:
     void UpdateCameraVectors();
 };
 
-EditorCamera::EditorCamera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), float yaw = YAW, float pitch = PITCH) : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Fov(ZOOM)
+EditorCamera::EditorCamera(vec3 position = vec3(0.0f, 0.0f, 0.0f), vec3 up = vec3(0.0f, 1.0f, 0.0f), float yaw = YAW, float pitch = PITCH) : Front(vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Fov(ZOOM)
 {
     Position = position;
     WorldUp = up;
@@ -77,14 +79,14 @@ EditorCamera::EditorCamera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm
 
 void EditorCamera::UpdateCameraVectors()
 {
-    glm::vec3 front;
-    front.x = cos(glm::radians(Yaw)) * cos(glm::radians(Pitch));
-    front.y = sin(glm::radians(Pitch));
-    front.z = sin(glm::radians(Yaw)) * cos(glm::radians(Pitch));
+    vec3 front;
+    front.x = cos(radians(Yaw)) * cos(radians(Pitch));
+    front.y = sin(radians(Pitch));
+    front.z = sin(radians(Yaw)) * cos(radians(Pitch));
 
-    Front = glm::normalize(front);
-    Right = glm::normalize(glm::cross(Front, WorldUp));
-    Up = glm::normalize(glm::cross(Right, Front));
+    Front = normalize(front);
+    Right = normalize(cross(Front, WorldUp));
+    Up = normalize(cross(Right, Front));
 
     UpdateLightPos();
 }
@@ -135,11 +137,11 @@ void EditorCamera::ProcessMouseLook(double x, double y)
     if (Pitch < -89.0f)
         Pitch = -89.0f;
 
-    glm::vec3 front;
-    front.x = cos(glm::radians(Yaw)) * cos(glm::radians(Pitch));
-    front.y = sin(glm::radians(Pitch));
-    front.z = sin(glm::radians(Yaw)) * cos(glm::radians(Pitch));
-    Front = glm::normalize(front);
+    vec3 front;
+    front.x = cos(radians(Yaw)) * cos(radians(Pitch));
+    front.y = sin(radians(Pitch));
+    front.z = sin(radians(Yaw)) * cos(radians(Pitch));
+    Front = normalize(front);
 }
 
 void EditorCamera::ProcessMouseMovement(float xoffset, float yoffset)

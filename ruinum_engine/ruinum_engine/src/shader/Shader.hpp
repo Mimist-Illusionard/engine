@@ -11,6 +11,7 @@
 #include <sstream>
 #include <iostream>
 
+
 class Shader
 {
 	unsigned int ID;
@@ -33,6 +34,8 @@ public:
 	void SetMat2(const std::string& name, const glm::mat2& mat) const;
 	void SetMat3(const std::string& name, const glm::mat3& mat) const;
 	void SetMat4(const std::string& name, const glm::mat4& mat) const;
+
+	void SetShaderMaterialSettings(glm::vec3, glm::vec3, glm::vec3, glm::vec3, float);
 };
 
 Shader::Shader(const char* vertexShaderName, const char* fragmentShaderName)
@@ -87,7 +90,6 @@ void Shader::SetFloat(const std::string& name, float value) const
 {
 	glUniform1f(glGetUniformLocation(ID, name.c_str()), value);
 }
-
 void Shader::SetVec2(const std::string& name, const glm::vec2& value) const
 {
 	glUniform2fv(glGetUniformLocation(ID, name.c_str()), 1, &value[0]);
@@ -112,7 +114,14 @@ void Shader::SetVec4(const std::string& name, float x, float y, float z, float w
 {
 	glUniform4f(glGetUniformLocation(ID, name.c_str()), x, y, z, w);
 }
-
+void Shader::SetShaderMaterialSettings(glm::vec3 Pos, glm::vec3 Ambient, glm::vec3 Diffuse, glm::vec3 Specular, float Shininess)
+{
+	SetVec3("light.position", Pos);
+	SetVec3("light.ambient", Ambient);
+	SetVec3("light.diffuse", Diffuse);
+	SetVec3("light.specular", Specular);
+	SetFloat("material.shininess", Shininess);
+}
 void Shader::SetMat2(const std::string& name, const glm::mat2& mat) const
 {
 	glUniformMatrix2fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, &mat[0][0]);

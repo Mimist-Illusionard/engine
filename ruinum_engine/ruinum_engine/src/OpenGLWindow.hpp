@@ -67,6 +67,7 @@ GLFWwindow* OpenGLWindow::CreateWindow()
 
 void OpenGLWindow::Render(GLFWwindow* window)
 {
+    //Light
     LightObject light = Camera.Light;
 
     //cube
@@ -80,17 +81,10 @@ void OpenGLWindow::Render(GLFWwindow* window)
 
     //shader settings
     Shader& colorCubeShader = colorCube.GetShader();
-    colorCubeShader.SetVec3("light.position", light.GetTransform().Position);
-    colorCubeShader.SetVec3("light.ambient", light.GetMaterial().Ambient);
-    colorCubeShader.SetVec3("light.diffuse", light.GetMaterial().Diffuse);
-    colorCubeShader.SetVec3("light.specular", light.GetMaterial().Specular);
-
+    colorCubeShader.SetShaderMaterialSettings(light.GetTransform().Position, light.GetMaterial().Ambient, light.GetMaterial().Diffuse, light.GetMaterial().Specular, 64.0f);
     colorCubeShader.SetInt("material.diffuse", 0);
     colorCubeShader.SetInt("material.specular", 1);
 
-    colorCubeShader.SetFloat("material.shininess", 64.0f);
-
-    SceneObject cube{ "TextureCube.vert", "TextureCube.frag" };
     while (!glfwWindowShouldClose(window))
     {
         float currentFrame = static_cast<float>(glfwGetTime());
