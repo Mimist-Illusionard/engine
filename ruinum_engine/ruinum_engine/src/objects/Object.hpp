@@ -39,7 +39,7 @@ public:
 
 Object::Object(const char* vert, const char* frag)
 {
-    Shader shaderWithPath{ vert, frag };
+    Shader shaderWithPath { vert, frag };
     _shader = shaderWithPath;
 }
 

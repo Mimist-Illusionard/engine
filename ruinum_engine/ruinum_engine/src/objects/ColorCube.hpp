@@ -16,6 +16,7 @@ public:
 
     void DrawLogic(EditorCamera camera);
     void MaterialSetted(Material material);
+    void ShaderSetLighting(glm::vec3, glm::vec3, glm::vec3, glm::vec3);
 };
 
 void ColorCube::DrawLogic(EditorCamera camera)
@@ -31,5 +32,13 @@ void ColorCube::MaterialSetted(Material material)
     _shader.SetVec3("material.diffuse", _material.Diffuse);
     _shader.SetVec3("material.specular", _material.Specular);
     _shader.SetFloat("material.shininess", _material.Shininess);
+}
+
+void ColorCube::ShaderSetLighting(glm::vec3 Pos, glm::vec3 Ambient, glm::vec3 Diffuse, glm::vec3 Specular)
+{
+    _shader.SetVec3("light.position", Pos);
+    _shader.SetVec3("light.ambient", Ambient);
+    _shader.SetVec3("light.diffuse", Diffuse);
+    _shader.SetVec3("light.specular", Specular);
 }
 #endif

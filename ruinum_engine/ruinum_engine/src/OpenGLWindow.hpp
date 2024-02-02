@@ -78,10 +78,10 @@ void OpenGLWindow::Render(GLFWwindow* window)
     colorCube.GetRender().LoadDiffuse("container.jpg");
     colorCube.GetRender().LoadSpecular("container_specular.jpg");
     colorCube.SetObjectMaterial({ 1.0f, 0.5f, 0.31f }, { 1.0f, 0.5f, 0.31f }, { 0.5f, 0.5f, 0.5f }, 32.0f);
+    colorCube.ShaderSetLighting(light.GetTransform().Position, light.GetMaterial().Ambient, light.GetMaterial().Diffuse, light.GetMaterial().Specular);
 
     //shader settings
     Shader& colorCubeShader = colorCube.GetShader();
-    colorCubeShader.SetShaderMaterialSettings(light.GetTransform().Position, light.GetMaterial().Ambient, light.GetMaterial().Diffuse, light.GetMaterial().Specular, 64.0f);
     colorCubeShader.SetInt("material.diffuse", 0);
     colorCubeShader.SetInt("material.specular", 1);
 
