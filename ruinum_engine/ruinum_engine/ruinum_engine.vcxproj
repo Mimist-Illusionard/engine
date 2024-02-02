@@ -148,6 +148,7 @@
     <ClInclude Include="src\core\Material.hpp" />
     <ClInclude Include="src\core\Transform.hpp" />
     <ClInclude Include="src\objects\ColorCube.hpp" />
+    <ClInclude Include="src\objects\LightObject.hpp" />
     <ClInclude Include="src\objects\SceneObject.hpp" />
     <ClInclude Include="src\objects\Object.hpp" />
     <ClInclude Include="src\editor\EditorUtilities.h" />

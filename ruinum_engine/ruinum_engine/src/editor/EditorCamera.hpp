@@ -4,8 +4,9 @@
 #include <glad/glad.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-
 #include <vector>
+
+#include "objects/LightObject.hpp"
 
 enum Input 
 {
@@ -24,6 +25,8 @@ const float ZOOM = 45.0f;
 class EditorCamera
 {
 public:
+    LightObject Light;
+
     glm::vec3 Position;
     glm::vec3 Front;
     glm::vec3 Up;
@@ -51,6 +54,7 @@ public:
     ~EditorCamera() {};
 
 private:
+    void UpdateLightPos() { Light.GetTransform().Position = Position; }
     void UpdateCameraVectors();
 };
 
@@ -61,6 +65,13 @@ EditorCamera::EditorCamera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm
     Yaw = yaw;
     Pitch = pitch;
     
+    //light settings
+    Material& lightMaterial = Light.GetMaterial();
+    lightMaterial.Color = vec3(1.0f, 1.0f, 1.0f);
+    lightMaterial.Diffuse = lightMaterial.Color * vec3(0.5f);
+    lightMaterial.Ambient = lightMaterial.Color * vec3(0.2f);
+    lightMaterial.Specular = vec3(1.0f);
+
     UpdateCameraVectors();
 }
 
@@ -74,6 +85,8 @@ void EditorCamera::UpdateCameraVectors()
     Front = glm::normalize(front);
     Right = glm::normalize(glm::cross(Front, WorldUp));
     Up = glm::normalize(glm::cross(Right, Front));
+
+    UpdateLightPos();
 }
 
 void EditorCamera::ProcessKeyboard(Input direction, float deltaTime)

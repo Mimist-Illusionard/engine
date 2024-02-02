@@ -18,8 +18,8 @@ char* CopyCatChars(const char* firstWord, const char* secondWord)
 
 char* GetResourcePath()
 {
-	//return CopyCatChars("S:/GraphicEngine/ruinum_engine/", "resources/");
-	return CopyCatChars("D:/GitHub/engine/ruinum_engine/", "resources/");
+	return CopyCatChars("S:/GraphicEngine/ruinum_engine/", "resources/");
+	//return CopyCatChars("D:/GitHub/engine/ruinum_engine/", "resources/");
 }
 
 char* GetShaderPath()

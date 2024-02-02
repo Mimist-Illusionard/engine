@@ -22,9 +22,9 @@ void ScrollCallback(GLFWwindow* window, double xoffset, double yoffset);
 
 class OpenGLWindow
 {
-public:    
+public:
     GLFWwindow* CreateWindow();
-	void Render(GLFWwindow* window);
+    void Render(GLFWwindow* window);
 
 private:
     float _deltaTime = 0.0f;
@@ -66,24 +66,16 @@ GLFWwindow* OpenGLWindow::CreateWindow()
 }
 
 void OpenGLWindow::Render(GLFWwindow* window)
-{  
-    SceneObject light{ "LightCube.vert", "LightCube.frag" };
-    light.GetTransform().Position = vec3(1.2f, 1.0f, 1.2f);
-    light.GetTransform().Scale = vec3(0.2, 0.2, 0.2);
-    light.GetTransform().Angle = 0;
+{
+    LightObject light = Camera.Light;
 
-    Material& lightMaterial = light.GetMaterial();
-    lightMaterial.Color = vec3(1.0f, 1.0f, 1.0f);
-    lightMaterial.Diffuse = lightMaterial.Color * vec3(0.5f);
-    lightMaterial.Ambient = lightMaterial.Color * vec3(0.2f);
-    lightMaterial.Specular = vec3(1.0f);
-    
+    //cube
     ColorCube colorCube{ "Colors.vert", "Colors.frag" };
     colorCube.GetTransform().Position = vec3(0, 0, 0);
-
     colorCube.GetRender().LoadDiffuse("container.jpg");
     colorCube.GetRender().LoadSpecular("container_specular.jpg");
 
+    //cube settings
     Material& cubeMaterial = colorCube.GetMaterial();
     cubeMaterial.Ambient = vec3(1.0f, 0.5f, 0.31f);
     cubeMaterial.Diffuse = vec3(1.0f, 0.5f, 0.31f);
@@ -92,11 +84,12 @@ void OpenGLWindow::Render(GLFWwindow* window)
 
     colorCube.RefreshMaterial();
 
+    //shader settings
     Shader& colorCubeShader = colorCube.GetShader();
     colorCubeShader.SetVec3("light.position", light.GetTransform().Position);
-    colorCubeShader.SetVec3("light.ambient", lightMaterial.Ambient);
-    colorCubeShader.SetVec3("light.diffuse", lightMaterial.Diffuse);
-    colorCubeShader.SetVec3("light.specular", lightMaterial.Specular);
+    colorCubeShader.SetVec3("light.ambient", light.GetMaterial().Ambient);
+    colorCubeShader.SetVec3("light.diffuse", light.GetMaterial().Diffuse);
+    colorCubeShader.SetVec3("light.specular", light.GetMaterial().Specular);
 
     colorCubeShader.SetInt("material.diffuse", 0);
     colorCubeShader.SetInt("material.specular", 1);
@@ -105,7 +98,8 @@ void OpenGLWindow::Render(GLFWwindow* window)
 
     SceneObject cube{ "TextureCube.vert", "TextureCube.frag" };
     while (!glfwWindowShouldClose(window))
-    {;
+    {
+        ;
         float currentFrame = static_cast<float>(glfwGetTime());
         _deltaTime = currentFrame - _lastFrame;
         _lastFrame = currentFrame;
@@ -113,19 +107,9 @@ void OpenGLWindow::Render(GLFWwindow* window)
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        light.Draw(Camera);
         colorCube.Draw(Camera);
 
-        for (int i = 0; i < 10; i++)
-        {
-            Transform& cubeTransform = cube.GetTransform();
-            cubeTransform.Position = cubePositions[i];
-            cubeTransform.Angle = 30 * i;
-
-            //cube.Draw(Camera);
-        }
-
-        Input(window);       
+        Input(window);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
@@ -156,7 +140,7 @@ void FramebufferCallback(GLFWwindow* window, int width, int height)
 
 void MouseCallback(GLFWwindow* window, double xposIn, double yposIn)
 {
-    Camera.ProcessMouseLook(xposIn, yposIn);    
+    Camera.ProcessMouseLook(xposIn, yposIn);
 }
 
 void ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
