@@ -33,12 +33,23 @@ public:
     Shader& GetShader() { return _shader; }
     Material& GetMaterial() { return _material; }
     RenderObject& GetRender() { return _render; }
+
+    void SetObjectMaterial(glm::vec3, glm::vec3, glm::vec3, float);
 };
 
 Object::Object(const char* vert, const char* frag)
 {
     Shader shaderWithPath{ vert, frag };
     _shader = shaderWithPath;
+}
+
+void Object::SetObjectMaterial(glm::vec3 Ambient, glm::vec3 Diffuse, glm::vec3 Specular, float Shininess)
+{
+    _material.Ambient   = Ambient;
+    _material.Diffuse   = Diffuse;
+    _material.Specular  = Specular;
+    _material.Shininess = Shininess;
+    RefreshMaterial();
 }
 
 void Object::Draw(EditorCamera camera)

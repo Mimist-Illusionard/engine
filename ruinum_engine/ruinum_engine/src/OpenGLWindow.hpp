@@ -71,18 +71,12 @@ void OpenGLWindow::Render(GLFWwindow* window)
 
     //cube
     ColorCube colorCube{ "Colors.vert", "Colors.frag" };
+
+    //cube settings
     colorCube.GetTransform().Position = vec3(0, 0, 0);
     colorCube.GetRender().LoadDiffuse("container.jpg");
     colorCube.GetRender().LoadSpecular("container_specular.jpg");
-
-    //cube settings
-    Material& cubeMaterial = colorCube.GetMaterial();
-    cubeMaterial.Ambient = vec3(1.0f, 0.5f, 0.31f);
-    cubeMaterial.Diffuse = vec3(1.0f, 0.5f, 0.31f);
-    cubeMaterial.Specular = vec3(0.5f, 0.5f, 0.5f);
-    cubeMaterial.Shininess = 32.0f;
-
-    colorCube.RefreshMaterial();
+    colorCube.SetObjectMaterial({ 1.0f, 0.5f, 0.31f }, { 1.0f, 0.5f, 0.31f }, { 0.5f, 0.5f, 0.5f }, 32.0f);
 
     //shader settings
     Shader& colorCubeShader = colorCube.GetShader();
@@ -99,12 +93,11 @@ void OpenGLWindow::Render(GLFWwindow* window)
     SceneObject cube{ "TextureCube.vert", "TextureCube.frag" };
     while (!glfwWindowShouldClose(window))
     {
-        ;
         float currentFrame = static_cast<float>(glfwGetTime());
         _deltaTime = currentFrame - _lastFrame;
         _lastFrame = currentFrame;
 
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClearColor(0.4f, 0.3f, 0.1f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         colorCube.Draw(Camera);
