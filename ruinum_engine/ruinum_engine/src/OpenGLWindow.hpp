@@ -100,8 +100,10 @@ void OpenGLWindow::Render(GLFWwindow* window)
     colorCubeShader.SetInt("material.specular", 1);
 
     SceneHierarchyWindow sceneHierarchyWindow;
+    //TODO: Make an actual object connection on view and in hierarchy window
     sceneHierarchyWindow.AddObject("light_0", "Light");
     sceneHierarchyWindow.AddObject("color_cube_0", "Color Cube");
+    sceneHierarchyWindow.AddObject("main_camera", "Camera");
 
     while (!glfwWindowShouldClose(window))
     {
