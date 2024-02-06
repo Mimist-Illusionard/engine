@@ -10,6 +10,7 @@
 #include "imgui/imgui_impl_opengl3.h"
 
 #include "Global.h"
+#include "editor/windows/SceneHierarchyWindow.hpp"
 #include "shader/Shader.hpp"
 #include "editor/EditorCamera.hpp"
 #include "core/Transform.hpp"
@@ -61,7 +62,7 @@ GLFWwindow* OpenGLWindow::CreateWindow()
     glfwSetCursorPosCallback(window, MouseCallback);
     glfwSetScrollCallback(window, ScrollCallback);
 
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
     glfwSwapInterval(1);
 
     glEnable(GL_DEPTH_TEST);
@@ -98,6 +99,10 @@ void OpenGLWindow::Render(GLFWwindow* window)
     colorCubeShader.SetInt("material.diffuse", 0);
     colorCubeShader.SetInt("material.specular", 1);
 
+    SceneHierarchyWindow sceneHierarchyWindow;
+    sceneHierarchyWindow.AddObject("light_0", "Light");
+    sceneHierarchyWindow.AddObject("color_cube_0", "Color Cube");
+
     while (!glfwWindowShouldClose(window))
     {
         float currentFrame = static_cast<float>(glfwGetTime());
@@ -110,9 +115,11 @@ void OpenGLWindow::Render(GLFWwindow* window)
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
-        ImGui::ShowDemoWindow();
+
+        //ImGui::ShowDemoWindow();
 
         colorCube.Draw(Camera);
+        sceneHierarchyWindow.Draw();
 
         Input(window);
 
@@ -159,5 +166,4 @@ void ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
 {
     Camera.ProcessMouseScroll(yoffset);
 }
-
 #endif

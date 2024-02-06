@@ -163,6 +163,8 @@
     <ClInclude Include="includes\KHR\khrplatform.h" />
     <ClInclude Include="src\core\Material.hpp" />
     <ClInclude Include="src\core\Transform.hpp" />
+    <ClInclude Include="src\editor\windows\EditorWindow.hpp" />
+    <ClInclude Include="src\editor\windows\SceneHierarchyWindow.hpp" />
     <ClInclude Include="src\objects\ColorCube.hpp" />
     <ClInclude Include="src\objects\LightObject.hpp" />
     <ClInclude Include="src\objects\SceneObject.hpp" />
@@ -181,6 +183,7 @@
     <Library Include="libs\glfw3.lib" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="imgui.ini" />
     <None Include="libs\glfw3.pdb" />
     <None Include="packages.config" />
   </ItemGroup>
