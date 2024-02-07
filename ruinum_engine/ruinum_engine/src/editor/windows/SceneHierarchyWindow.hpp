@@ -51,7 +51,7 @@ void SceneHierarchyWindow::Draw()
 		counter++;
 	}
 
-	End();	
+	End();
 }
 
 void SceneHierarchyWindow::AddObject(const char* key, const char* name)

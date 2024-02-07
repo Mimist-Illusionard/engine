@@ -10,12 +10,13 @@
 #include "imgui/imgui_impl_opengl3.h"
 
 #include "Global.h"
-#include "editor/windows/SceneHierarchyWindow.hpp"
 #include "shader/Shader.hpp"
 #include "editor/EditorCamera.hpp"
-#include "core/Transform.hpp"
 #include "objects/SceneObject.hpp"
-#include "objects/ColorCube.hpp"
+#include "objects/ColorCube.hpp" 
+
+#include "editor/windows/SceneHierarchyWindow.hpp"
+#include "editor/windows/InspectorWindow.hpp"
 
 using namespace glm;
 
@@ -105,6 +106,8 @@ void OpenGLWindow::Render(GLFWwindow* window)
     sceneHierarchyWindow.AddObject("color_cube_0", "Color Cube");
     sceneHierarchyWindow.AddObject("main_camera", "Camera");
 
+    InspectorWindow inspectorWindow;
+
     while (!glfwWindowShouldClose(window))
     {
         float currentFrame = static_cast<float>(glfwGetTime());
@@ -122,6 +125,7 @@ void OpenGLWindow::Render(GLFWwindow* window)
 
         colorCube.Draw(Camera);
         sceneHierarchyWindow.Draw();
+        inspectorWindow.Draw();
 
         Input(window);
 

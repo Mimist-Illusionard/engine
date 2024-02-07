@@ -2,8 +2,7 @@
 #define COLOR_CUBE_HPP
 
 #include "Object.hpp"
-#include "../core/Material.hpp"
-
+ 
 class ColorCube: public Object
 {
 public:

@@ -1,8 +1,6 @@
 #ifndef SCENEOBJECT_HPP
 #define SCENEOBJECT_HPP
 
-#include "../core/Transform.hpp"
-#include "../core/Material.hpp"
 #include "../shader/Shader.hpp"
 #include "../RenderObject.hpp"
 #include "../editor/EditorCamera.hpp"

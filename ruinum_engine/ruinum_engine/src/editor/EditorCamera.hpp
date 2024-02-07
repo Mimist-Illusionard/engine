@@ -7,6 +7,7 @@
 #include <vector>
 
 #include "objects/LightObject.hpp"
+#include "core/components/Material.hpp"
 
 using namespace glm;
 

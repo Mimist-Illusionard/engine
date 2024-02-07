@@ -109,7 +109,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>includes;editor;core</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>includes;editor;core;components;managers;objects</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -161,10 +161,19 @@
     <ClInclude Include="includes\imgui\imstb_textedit.h" />
     <ClInclude Include="includes\imgui\imstb_truetype.h" />
     <ClInclude Include="includes\KHR\khrplatform.h" />
-    <ClInclude Include="src\core\Material.hpp" />
-    <ClInclude Include="src\core\Transform.hpp" />
+    <ClInclude Include="src\core\ComponentArray.hpp" />
+    <ClInclude Include="src\core\Coordinator.hpp" />
+    <ClInclude Include="src\core\ECS.h" />
+    <ClInclude Include="src\core\managers\ComponentManager.hpp" />
+    <ClInclude Include="src\core\managers\ECS.h" />
+    <ClInclude Include="src\core\components\Material.hpp" />
+    <ClInclude Include="src\core\components\Transform.hpp" />
+    <ClInclude Include="src\core\managers\SystemManager.hpp" />
+    <ClInclude Include="src\core\systems\System.hpp" />
     <ClInclude Include="src\editor\windows\EditorWindow.hpp" />
+    <ClInclude Include="src\editor\windows\InspectorWindow.hpp" />
     <ClInclude Include="src\editor\windows\SceneHierarchyWindow.hpp" />
+    <ClInclude Include="src\core\managers\EntityManager.hpp" />
     <ClInclude Include="src\objects\ColorCube.hpp" />
     <ClInclude Include="src\objects\LightObject.hpp" />
     <ClInclude Include="src\objects\SceneObject.hpp" />
