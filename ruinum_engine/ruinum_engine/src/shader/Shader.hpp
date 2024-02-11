@@ -3,6 +3,7 @@
 
 #include "ShaderCreator.h"
 #include "editor/EditorUtilities.h"
+
 #include <glad/glad.h>
 #include <glm/glm.hpp>
 
@@ -10,7 +11,6 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
-
 
 class Shader
 {

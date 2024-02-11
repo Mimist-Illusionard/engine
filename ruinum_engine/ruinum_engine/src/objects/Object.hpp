@@ -14,29 +14,29 @@
 class Object
 {
 protected:
-    Transform _transform;
+    TransformComponent _transform;
     Shader _shader;
     RenderObject _render;
-    Material _material;
+    MaterialComponent _material;
 
     virtual void DrawLogic(EditorCamera) { }
-    virtual void MaterialSetted(Material) { }
+    virtual void MaterialSetted(MaterialComponent) { }
 public:
     Object(const char*, const char*);
     void Draw(EditorCamera);
-    void SetMaterial(Material);
+    void SetMaterial(MaterialComponent);
     void RefreshMaterial();
 
-    Transform& GetTransform() { return _transform; }
+    TransformComponent& GetTransform() { return _transform; }
     Shader& GetShader() { return _shader; }
-    Material& GetMaterial() { return _material; }
+    MaterialComponent& GetMaterial() { return _material; }
     RenderObject& GetRender() { return _render; }
 
     void SetObjectMaterial(glm::vec3, glm::vec3, glm::vec3, float);
 };
 
 Object::Object(const char* vert, const char* frag)
-{
+{ 
     Shader shaderWithPath { vert, frag };
     _shader = shaderWithPath;
 }
@@ -74,7 +74,7 @@ void Object::Draw(EditorCamera camera)
     DrawLogic(camera);
 }
 
-void Object::SetMaterial(Material material) 
+void Object::SetMaterial(MaterialComponent material) 
 {
     _material = material; 
     MaterialSetted(material);

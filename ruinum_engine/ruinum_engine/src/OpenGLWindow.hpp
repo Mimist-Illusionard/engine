@@ -5,18 +5,21 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 
+#include "Global.h"
+
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_glfw.h"
 #include "imgui/imgui_impl_opengl3.h"
 
-#include "Global.h"
 #include "shader/Shader.hpp"
-#include "editor/EditorCamera.hpp"
 #include "objects/SceneObject.hpp"
 #include "objects/ColorCube.hpp" 
 
+#include "editor/EditorCamera.hpp"
 #include "editor/windows/SceneHierarchyWindow.hpp"
 #include "editor/windows/InspectorWindow.hpp"
+
+#include "core/RuinumManager.hpp"
 
 using namespace glm;
 
@@ -82,6 +85,27 @@ GLFWwindow* OpenGLWindow::CreateWindow()
 
 void OpenGLWindow::Render(GLFWwindow* window)
 {
+    RuinumManager ruinumManager;
+    ruinumManager.Initialize();
+
+    //Entity cameraEntity = coordinator.CreateEntity();
+    //coordinator.AddComponent(cameraEntity, CameraComponent(Camera));
+
+    /*Entity cubeEntity = coordinator.CreateEntity();
+    coordinator.AddComponent(cubeEntity, RenderInitializerComponent());
+    coordinator.AddComponent(cubeEntity, VerticesComponent());
+    coordinator.AddComponent(cubeEntity, ShaderComponent("Colors.vert", "Colors.frag"));*/
+
+    //Entity entity = coordinator.CreateEntity();
+    //coordinator.AddComponent(entity, RenderComponent());
+
+    /* Entity cube = coordinator.CreateEntity();
+    coordinator.AddComponent(cube, TransformComponent(vec3(0, 3, 0), vec3(1, 1, 1), 45));
+    coordinator.AddComponent(cube, MaterialComponent(vec3(1, 1, 1), vec3(1.0f, 0.5f, 0.31f), vec3(1.0f, 0.5f, 0.31f), vec3(0.5f, 0.5f, 0.5f), 32.0f ));
+    coordinator.AddComponent(cube, ShaderComponent("Colors.vert", "Colors.frag"));
+    coordinator.AddComponent(cube, RenderInitializerComponent());
+    coordinator.AddComponent(cube, RenderComponent());*/
+
     //Light
     LightObject light = Camera.Light;
 
@@ -122,6 +146,8 @@ void OpenGLWindow::Render(GLFWwindow* window)
         ImGui::NewFrame();
 
         //ImGui::ShowDemoWindow();
+
+        ruinumManager.Execute();
 
         colorCube.Draw(Camera);
         sceneHierarchyWindow.Draw();

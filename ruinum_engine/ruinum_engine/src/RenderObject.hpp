@@ -4,6 +4,7 @@
 #include "editor/TextureLoader.h"
 #include "Global.h"
 #include "../stb_image.h"
+
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>

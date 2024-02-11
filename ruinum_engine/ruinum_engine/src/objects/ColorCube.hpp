@@ -14,7 +14,7 @@ public:
     }
 
     void DrawLogic(EditorCamera camera);
-    void MaterialSetted(Material material);
+    void MaterialSetted(MaterialComponent material);
     void ShaderSetLighting(glm::vec3, glm::vec3, glm::vec3, glm::vec3);
 };
 
@@ -23,9 +23,9 @@ void ColorCube::DrawLogic(EditorCamera camera)
     _shader.SetVec3("viewPos", camera.Position);
 }
 
-void ColorCube::MaterialSetted(Material material) 
+void ColorCube::MaterialSetted(MaterialComponent material) 
 {
-    _material = material;
+    //_material = material;
 
     _shader.SetVec3("material.ambient", _material.Ambient);
     _shader.SetVec3("material.diffuse", _material.Diffuse);

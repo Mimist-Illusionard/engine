@@ -2,12 +2,21 @@
 #define SYSTEM
 
 #include "../ECS.h"
+#include "../Components.h"
+#include "../Coordinator.hpp"
+
 #include <set>
 
 class System
 {
 public:
-	std::set<Entity> _entities;
+	virtual void Initialize() {}
+	virtual void Execute() {}
+	virtual void OnDestroy() {}
+
+	std::set<Entity> Entities;
+
+private:
 };
 
 #endif

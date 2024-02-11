@@ -3,6 +3,10 @@
 
 #include "ECS.h"
 
+#include <array>
+#include <cassert>
+#include <unordered_map>
+
 class IComponentArray
 {
 public:
@@ -18,7 +22,6 @@ public:
 	{
 		assert(_entityToMap.find(entity) == _entityToMap.end() && "Component added to same entity more than once.");
 
-		// Put new entry at end and update the maps
 		size_t newIndex = mSize;
 		_entityToMap[entity] = newIndex;
 		_indexToMap[newIndex] = entity;
@@ -60,9 +63,9 @@ public:
 	}
 
 private:
-	std::array<T, MAX_ENTITIES> _components;
-	std::unordered_map<Entity, size_t> _entityToMap; 
-	std::unordered_map<size_t, Entity> _indexToMap;
+	array<T, MAX_ENTITIES> _components;
+	unordered_map<Entity, size_t> _entityToMap; 
+	unordered_map<size_t, Entity> _indexToMap;
 	size_t mSize;
 };
 

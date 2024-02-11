@@ -7,7 +7,7 @@
 #include <vector>
 
 #include "objects/LightObject.hpp"
-#include "core/components/Material.hpp"
+#include "core/components/MaterialComponent.hpp"
 
 using namespace glm;
 
@@ -69,7 +69,7 @@ EditorCamera::EditorCamera(vec3 position = vec3(0.0f, 0.0f, 0.0f), vec3 up = vec
     Pitch = pitch;
     
     //light settings
-    Material& lightMaterial = Light.GetMaterial();
+    MaterialComponent& lightMaterial = Light.GetMaterial();
     lightMaterial.Color = vec3(1.0f, 1.0f, 1.0f);
     lightMaterial.Diffuse = lightMaterial.Color * vec3(0.5f);
     lightMaterial.Ambient = lightMaterial.Color * vec3(0.2f);

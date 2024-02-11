@@ -56,7 +56,7 @@ void SystemManager::EntityDestroyed(Entity entity)
 	for (auto const& pair : _systems)
 	{
 		auto const& system = pair.second;
-		system->_entities.erase(entity);
+		system->Entities.erase(entity);
 	}
 }
 
@@ -68,13 +68,16 @@ void SystemManager::EntitySignatureChanged(Entity entity, Signature signature)
 		auto const& system = pair.second;
 		auto const& systemSignature = _signatures[type];
 
+		cout << systemSignature << " " << signature << endl;
+		cout << "-------" << endl;
+
 		if ((signature & systemSignature) == systemSignature)
 		{
-			system->_entities.insert(entity);
+			system->Entities.insert(entity);
 		}
 		else
 		{
-			system->_entities.erase(entity);
+			system->Entities.erase(entity);
 		}
 	}
 }

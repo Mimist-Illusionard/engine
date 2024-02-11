@@ -6,6 +6,8 @@
 #include "managers/ComponentManager.hpp"
 #include "managers/SystemManager.hpp"
 
+#include "../extentions/LogExtentions.h"
+
 #include <memory>
 
 using namespace std;
@@ -16,6 +18,9 @@ public:
 	void Initialize();
 	Entity CreateEntity();
 	void DestroyEntity(Entity);
+
+	template<typename T>
+	bool TryGetEntity(Entity& );
 
 	template<typename T>
 	void RegisterComponent();
@@ -56,12 +61,22 @@ Entity Coordinator::CreateEntity()
 	return _entityManager->CreateEntity();
 }
 
+template<typename T>
+bool Coordinator::TryGetEntity(Entity& result)
+{
+	if (!_entityManager->TryGetEntity<T>(_componentManager->GetComponentType<T>(), result))
+	{
+		Log("Can't find entity with that component.");
+		return false;
+	}
+	
+	return true;
+}
+
 void Coordinator::DestroyEntity(Entity entity)
 {
 	_entityManager->DestroyEntity(entity);
-
 	_componentManager->EntityDestroyed(entity);
-
 	_systemManager->EntityDestroyed(entity);
 }
 

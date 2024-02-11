@@ -1,8 +1,9 @@
 #ifndef LIGHTOBJECT_HPP
 #define LIGHTOBJECT_HPP
 
-#include "../core/components/Transform.hpp"
-#include "../core/components/Material.hpp"
+#include "../core/components/TransformComponent.hpp"
+#include "../core/components/MaterialComponent.hpp"
+
 #include "../shader/Shader.hpp" 
 #include "../RenderObject.hpp"
 #include "../editor/EditorCamera.hpp"
@@ -15,17 +16,16 @@
 
 class LightObject
 {
-    Transform _transform;
-    Material _material;
-    void SetMaterial(Material);
+    TransformComponent _transform;
+    MaterialComponent _material;
+    void SetMaterial(MaterialComponent);
 
 public:
-    Transform& GetTransform() { return _transform; }
-    Material& GetMaterial() { return _material; }
+    TransformComponent& GetTransform() { return _transform; }
+    MaterialComponent& GetMaterial() { return _material; }
 };
 
-
-void LightObject::SetMaterial(Material material)
+void LightObject::SetMaterial(MaterialComponent material)
 {
     _material = material;
 }
