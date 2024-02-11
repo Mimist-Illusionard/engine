@@ -34,10 +34,11 @@ void RenderSystem::Initialize()
 
 void RenderSystem::Execute()
 {
+	//cout << "Render System entities amout: " << Entities.size() << endl;
 	if (Entities.size() <= 0) return;
 
 	Entity cameraEntity;
-	if (!coordinator.TryGetEntity<CameraComponent>(cameraEntity)) { cout << "test"; return; }
+	if (!coordinator.TryGetEntity<CameraComponent>(cameraEntity)) return; 
 	CameraComponent& camera = coordinator.GetComponent<CameraComponent>(cameraEntity);
 
 	//std::cout << "Position:" << camera.Camera.Position.x << "," << camera.Camera.Position.y << "," << camera.Camera.Position.z << std::endl;
@@ -66,10 +67,8 @@ void RenderSystem::Execute()
 		model = scale(model, transform.Scale);
 
 		shader.mShader.SetMat4("model", model);
-		glDrawArrays(GL_TRIANGLES, 0, 36);
 
-		glBindVertexArray(verties.VAO);
-
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 	}
 }

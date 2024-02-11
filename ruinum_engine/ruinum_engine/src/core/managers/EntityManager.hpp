@@ -48,7 +48,6 @@ Entity EntityManager::CreateEntity()
 	_freeEntities.pop();
 
 	_entities.push_back(entity);
-	std::cout << _entities.size() << std::endl;
 
 	++_entityAmount;
 

@@ -21,12 +21,10 @@ void CameraSystem::Initialize()
 }
 
 void CameraSystem::Execute()
-{
-	//cout << Entities.size() << endl;
-
+{	
 	for (auto const& entity : Entities)
 	{
-		//cout << "Camera entity available";
+		
 	}
 }
 

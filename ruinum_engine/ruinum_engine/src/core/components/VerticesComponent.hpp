@@ -4,7 +4,12 @@
 struct VerticesComponent
 {
 	unsigned int VBO, VAO;
-	float Vertices[1];
+	float *Vertices;
+	VerticesComponent(){}
+	VerticesComponent(float vertices[])
+	{
+		Vertices = vertices;
+	}
 };
 
 #endif

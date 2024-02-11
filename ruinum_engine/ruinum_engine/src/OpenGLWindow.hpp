@@ -88,23 +88,15 @@ void OpenGLWindow::Render(GLFWwindow* window)
     RuinumManager ruinumManager;
     ruinumManager.Initialize();
 
-    //Entity cameraEntity = coordinator.CreateEntity();
-    //coordinator.AddComponent(cameraEntity, CameraComponent(Camera));
+    Entity cameraEntity = coordinator.CreateEntity();
+    coordinator.AddComponent(cameraEntity, CameraComponent(Camera));
 
     Entity cubeEntity = coordinator.CreateEntity();
     coordinator.AddComponent(cubeEntity, RenderInitializeComponent());
-    coordinator.AddComponent(cubeEntity, VerticesComponent());
-    coordinator.AddComponent(cubeEntity, ShaderComponent("Colors.vert", "Colors.frag"));
-
-    //Entity entity = coordinator.CreateEntity();
-    //coordinator.AddComponent(entity, RenderComponent());
-
-    /* Entity cube = coordinator.CreateEntity();
-    coordinator.AddComponent(cube, TransformComponent(vec3(0, 3, 0), vec3(1, 1, 1), 45));
-    coordinator.AddComponent(cube, MaterialComponent(vec3(1, 1, 1), vec3(1.0f, 0.5f, 0.31f), vec3(1.0f, 0.5f, 0.31f), vec3(0.5f, 0.5f, 0.5f), 32.0f ));
-    coordinator.AddComponent(cube, ShaderComponent("Colors.vert", "Colors.frag"));
-    coordinator.AddComponent(cube, RenderInitializerComponent());
-    coordinator.AddComponent(cube, RenderComponent());*/
+    coordinator.AddComponent(cubeEntity, VerticesComponent(vertices));
+    coordinator.AddComponent(cubeEntity, ShaderComponent("LightCube.vert", "LightCube.frag"));
+    coordinator.AddComponent(cubeEntity, MaterialComponent(vec3(1, 1, 1), vec3(1.0f, 0.5f, 0.31f), vec3(1.0f, 0.5f, 0.31f), vec3(0.5f, 0.5f, 0.5f), 32.0f));
+    coordinator.AddComponent(cubeEntity, TransformComponent(vec3(0, 0, 0), vec3(1, 1, 1), 0));
 
     //Light
     LightObject light = Camera.Light;
@@ -112,14 +104,14 @@ void OpenGLWindow::Render(GLFWwindow* window)
     //cube
     ColorCube colorCube{ "Colors.vert", "Colors.frag" };
 
-    //cube settings
+    ////cube settings
     colorCube.GetTransform().Position = vec3(0, 0, 0);
     colorCube.GetRender().LoadDiffuse("container.jpg");
     colorCube.GetRender().LoadSpecular("container_specular.jpg");
     colorCube.SetObjectMaterial({ 1.0f, 0.5f, 0.31f }, { 1.0f, 0.5f, 0.31f }, { 0.5f, 0.5f, 0.5f }, 32.0f);
     colorCube.ShaderSetLighting(light.GetTransform().Position, light.GetMaterial().Ambient, light.GetMaterial().Diffuse, light.GetMaterial().Specular);
 
-    //shader settings
+    ////shader settings
     Shader& colorCubeShader = colorCube.GetShader();
     colorCubeShader.SetInt("material.diffuse", 0);
     colorCubeShader.SetInt("material.specular", 1);

@@ -21,7 +21,6 @@ void RenderInitializeSystem::Initialize()
 {
 	Signature signature;
 	signature.set(coordinator.GetComponentType<VerticesComponent>());
-	signature.set(coordinator.GetComponentType<ShaderComponent>());
 	signature.set(coordinator.GetComponentType<RenderInitializeComponent>());
 	coordinator.SetSystemSignature<RenderInitializeSystem>(signature);
 }
@@ -33,7 +32,6 @@ void RenderInitializeSystem::Execute()
 		_cleanUpEntities.push_back(entity);
 
 		auto& vertices = coordinator.GetComponent<VerticesComponent>(entity);
-		auto& shader = coordinator.GetComponent<ShaderComponent>(entity);
 
 		glGenBuffers(1, &vertices.VBO);
 		glGenVertexArrays(1, &vertices.VAO);
@@ -41,7 +39,7 @@ void RenderInitializeSystem::Execute()
 		glBindVertexArray(vertices.VAO);
 
 		glBindBuffer(GL_ARRAY_BUFFER, vertices.VBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(32), vertices.Vertices, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices.Vertices), vertices.Vertices, GL_STATIC_DRAW);
 
 		glBindVertexArray(vertices.VAO);
 		//vertices
