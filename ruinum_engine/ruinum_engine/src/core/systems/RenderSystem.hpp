@@ -34,6 +34,8 @@ void RenderSystem::Initialize()
 
 void RenderSystem::Execute()
 {
+	if (Entities.size() <= 0) return;
+
 	Entity cameraEntity;
 	if (!coordinator.TryGetEntity<CameraComponent>(cameraEntity)) { cout << "test"; return; }
 	CameraComponent& camera = coordinator.GetComponent<CameraComponent>(cameraEntity);
@@ -42,8 +44,6 @@ void RenderSystem::Execute()
 
 	for (auto const& entity : Entities)
 	{
-		std::cout << "test" << std::endl;
-
 		auto& verties = coordinator.GetComponent<VerticesComponent>(entity);
 		auto& material = coordinator.GetComponent<MaterialComponent>(entity);
 		auto& shader = coordinator.GetComponent<ShaderComponent>(entity);

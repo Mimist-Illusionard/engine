@@ -68,8 +68,9 @@ void SystemManager::EntitySignatureChanged(Entity entity, Signature signature)
 		auto const& system = pair.second;
 		auto const& systemSignature = _signatures[type];
 
-		cout << systemSignature << " " << signature << endl;
-		cout << "-------" << endl;
+		//cout << type << " " << endl;
+		//cout << systemSignature << " " << signature << endl;
+		//cout << "-------" << endl;
 
 		if ((signature & systemSignature) == systemSignature)
 		{

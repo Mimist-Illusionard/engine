@@ -91,10 +91,10 @@ void OpenGLWindow::Render(GLFWwindow* window)
     //Entity cameraEntity = coordinator.CreateEntity();
     //coordinator.AddComponent(cameraEntity, CameraComponent(Camera));
 
-    /*Entity cubeEntity = coordinator.CreateEntity();
-    coordinator.AddComponent(cubeEntity, RenderInitializerComponent());
+    Entity cubeEntity = coordinator.CreateEntity();
+    coordinator.AddComponent(cubeEntity, RenderInitializeComponent());
     coordinator.AddComponent(cubeEntity, VerticesComponent());
-    coordinator.AddComponent(cubeEntity, ShaderComponent("Colors.vert", "Colors.frag"));*/
+    coordinator.AddComponent(cubeEntity, ShaderComponent("Colors.vert", "Colors.frag"));
 
     //Entity entity = coordinator.CreateEntity();
     //coordinator.AddComponent(entity, RenderComponent());

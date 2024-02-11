@@ -25,7 +25,7 @@ void ComponentRegister::Initialize()
 	coordinator.RegisterComponent<ShaderComponent>();
 	coordinator.RegisterComponent<MaterialComponent>();
 	
-	coordinator.RegisterComponent<RenderInitializerComponent>();
+	coordinator.RegisterComponent<RenderInitializeComponent>();
 	coordinator.RegisterComponent<RenderComponent>();
 }
 

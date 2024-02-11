@@ -6,7 +6,7 @@
 #include "components/VerticesComponent.hpp"
 #include "components/TransformComponent.hpp"
 #include "components/ShaderComponent.hpp"
-#include "components/RenderInitializerComponent.hpp"
+#include "components/RenderInitializeComponent.hpp"
 #include "components/RenderComponent.hpp"
 
 #endif

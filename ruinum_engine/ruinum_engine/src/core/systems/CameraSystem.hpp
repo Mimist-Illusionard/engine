@@ -17,12 +17,12 @@ void CameraSystem::Initialize()
 {
 	Signature signature;
 	signature.set(coordinator.GetComponentType<CameraComponent>());
-	coordinator.SetSystemSignature<RenderInitializeSystem>(signature);
+	coordinator.SetSystemSignature<CameraSystem>(signature);
 }
 
 void CameraSystem::Execute()
 {
-	cout << Entities.size() << endl;
+	//cout << Entities.size() << endl;
 
 	for (auto const& entity : Entities)
 	{

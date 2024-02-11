@@ -168,7 +168,7 @@
     <ClInclude Include="src\core\components\CameraComponent.hpp" />
     <ClInclude Include="src\core\Components.h" />
     <ClInclude Include="src\core\components\RenderComponent.hpp" />
-    <ClInclude Include="src\core\components\RenderInitializerComponent.hpp" />
+    <ClInclude Include="src\core\components\RenderInitializeComponent.hpp" />
     <ClInclude Include="src\core\components\VerticesComponent.hpp" />
     <ClInclude Include="src\core\components\ShaderComponent.hpp" />
     <ClInclude Include="src\core\Coordinator.hpp" />

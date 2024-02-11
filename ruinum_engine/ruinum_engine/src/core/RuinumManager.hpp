@@ -29,5 +29,6 @@ void RuinumManager::Initialize()
 void RuinumManager::Execute()
 {
 	_systems.Execute();
+	_systems.CleanUp();
 }
 #endif

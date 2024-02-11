@@ -9,6 +9,7 @@ class RuinumSystems
 public:
 	void Initialize();
 	void Execute();
+	void CleanUp();
 
 private:
 	list<shared_ptr<System>> _systems;
@@ -31,6 +32,14 @@ void RuinumSystems::Execute()
 	for (shared_ptr<System> system : _systems) 
 	{
 		system->Execute();
+	}
+}
+
+void RuinumSystems::CleanUp()
+{
+	for (shared_ptr<System> system : _systems)
+	{
+		system->CleanUp();
 	}
 }
 
