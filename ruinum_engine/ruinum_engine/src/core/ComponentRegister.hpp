@@ -10,9 +10,6 @@ class ComponentRegister
 {
 public:
 	void Initialize();
-
-private:
-
 };
 
 

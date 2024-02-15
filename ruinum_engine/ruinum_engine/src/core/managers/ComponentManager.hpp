@@ -10,7 +10,7 @@
 
 using namespace std;
 
-class ComponentManager
+class ComponentManager: public IEntityObserver
 {
 public:
 	template<typename T>

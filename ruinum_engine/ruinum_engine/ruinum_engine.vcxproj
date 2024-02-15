@@ -143,6 +143,8 @@
     <ClCompile Include="includes\imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="includes\imgui\imgui_tables.cpp" />
     <ClCompile Include="includes\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="src\core\observers\IEntityObservable.cpp" />
+    <ClCompile Include="src\core\observers\IEntityObserver.cpp" />
     <ClCompile Include="src\editor\EditorUtilities.cpp" />
     <ClCompile Include="src\extentions\ListExtentions.cpp" />
     <ClCompile Include="src\extentions\LogExtentions.cpp" />
@@ -185,6 +187,7 @@
     <ClInclude Include="src\core\systems\RenderInitializeSystem.hpp" />
     <ClInclude Include="src\core\systems\RenderSystem.hpp" />
     <ClInclude Include="src\core\systems\System.hpp" />
+    <ClInclude Include="src\editor\RuinumEditor.hpp" />
     <ClInclude Include="src\editor\windows\EditorWindow.hpp" />
     <ClInclude Include="src\editor\windows\InspectorWindow.hpp" />
     <ClInclude Include="src\editor\windows\SceneHierarchyWindow.hpp" />

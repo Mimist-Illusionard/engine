@@ -10,10 +10,9 @@
 
 using namespace std;
 
-class SystemManager
+class SystemManager: public IEntityObserver
 {
 public:
-
 	template<typename T>
 	shared_ptr<T> RegisterSystem();
 
@@ -67,10 +66,6 @@ void SystemManager::EntitySignatureChanged(Entity entity, Signature signature)
 		auto const& type = pair.first;
 		auto const& system = pair.second;
 		auto const& systemSignature = _signatures[type];
-
-		//cout << type << " " << endl;
-		//cout << systemSignature << " " << signature << endl;
-		//cout << "-------" << endl;
 
 		if ((signature & systemSignature) == systemSignature)
 		{

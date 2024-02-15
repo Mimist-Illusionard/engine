@@ -9,15 +9,16 @@
 
 #include "../ECS.h"
 #include "../RuinumManager.hpp"
+#include "../observers/IEntityObservable.cpp"
 
 using namespace std;
 
-class EntityManager
+class EntityManager : public IEntityObservable
 {
 public:
 	EntityManager();
 
-	Entity CreateEntity();
+	Entity CreateEntity(const char*);
 	void DestroyEntity(Entity);
 	void SetSignature(Entity, Signature);
 	Signature GetSignature(Entity entity);
@@ -40,7 +41,7 @@ EntityManager::EntityManager()
 	}
 }
 
-Entity EntityManager::CreateEntity()
+Entity EntityManager::CreateEntity(const char* name)
 {
 	assert(_entityAmount < MAX_ENTITIES && "Too many entities exits.");
 
@@ -51,6 +52,8 @@ Entity EntityManager::CreateEntity()
 
 	++_entityAmount;
 
+	OnEntityCreated(entity, name);
+
 	return entity;
 }
 
@@ -60,8 +63,9 @@ void EntityManager::DestroyEntity(Entity entity)
 
 	_signatures[entity].reset();
 	_freeEntities.push(entity);
-	//TODO: Add removing entity from list if it destroyed
+	_entities.erase(remove(_entities.begin(), _entities.end(), entity), _entities.end());
 
+	OnEntityDestroyed(entity);
 	--_entityAmount;
 }
 

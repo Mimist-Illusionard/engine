@@ -3,6 +3,7 @@
 
 #include "EditorWindow.hpp"
 #include "imgui/imgui.h"
+#include "../../core/ECS.h"
 
 #include <stdio.h>
 #include <guiddef.h>
@@ -11,17 +12,20 @@
 using namespace ImGui;
 using namespace std;
 
-class SceneHierarchyWindow: public EditorWindow
+class SceneHierarchyWindow: public EditorWindow, public IEntityObserver
 {
 public:
 	SceneHierarchyWindow();
 	void Draw();
-	void AddObject(char*, char*);
-	void AddObject(const char*, const char*);
+	void AddObject(char*, Entity);
 	void RemoveObject(char*);
+	
+	void EntityCreated(Entity, char const*);
+	void EntityDestoryed(Entity);
+
 private:
 	ImGuiWindowFlags _flags;
-	map<char*, char*> _objects;
+	map<char*, Entity> _objects;
 	int _objectsSize = 0;
 	int _selected = -1;
 	bool* _open;
@@ -44,9 +48,9 @@ void SceneHierarchyWindow::Draw()
 	Begin("Scene Hierarchy", _open, _flags);
 
 	int counter = 0;
-	for (map<char*, char*>::iterator i = _objects.begin(); i != _objects.end(); ++i)
+	for (map<char*, Entity>::iterator i = _objects.begin(); i != _objects.end(); ++i)
 	{
-		if (Selectable(i -> second, _selected == counter))
+		if (Selectable(i -> first, _selected == counter))
 			_selected = counter;
 		counter++;
 	}
@@ -54,14 +58,9 @@ void SceneHierarchyWindow::Draw()
 	End();
 }
 
-void SceneHierarchyWindow::AddObject(const char* key, const char* name)
+void SceneHierarchyWindow::AddObject(char* key, Entity entity)
 {
-	AddObject((char*)key, (char*)name);
-}
-
-void SceneHierarchyWindow::AddObject(char* key, char* name)
-{
-	_objects.insert(pair<char*, char*>(key, name));
+	_objects.insert(pair<char*, Entity>(key, entity));
 	_objectsSize++;
 }
 
@@ -69,5 +68,18 @@ void SceneHierarchyWindow::RemoveObject(char* key)
 {
 	_objects.erase(key);
 	_objectsSize--;
+}
+
+void SceneHierarchyWindow::EntityCreated(Entity entity, const char* name)
+{
+	AddObject((char*)name, entity);
+}
+
+void SceneHierarchyWindow::EntityDestoryed(Entity entity)
+{
+	for (map<char*, Entity>::iterator i = _objects.begin(); i != _objects.end(); ++i)
+	{
+		if (i->second == entity) RemoveObject(i->first);
+	}
 }
 #endif

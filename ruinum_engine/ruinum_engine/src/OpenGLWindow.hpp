@@ -16,10 +16,9 @@
 #include "objects/ColorCube.hpp" 
 
 #include "editor/EditorCamera.hpp"
-#include "editor/windows/SceneHierarchyWindow.hpp"
-#include "editor/windows/InspectorWindow.hpp"
 
 #include "core/RuinumManager.hpp"
+#include "editor/RuinumEditor.hpp"
 
 using namespace glm;
 
@@ -88,10 +87,13 @@ void OpenGLWindow::Render(GLFWwindow* window)
     RuinumManager ruinumManager;
     ruinumManager.Initialize();
 
-    Entity cameraEntity = coordinator.CreateEntity();
+    RuinumEditor ruinumEditor;
+    ruinumEditor.Initialize(*coordinator.GetEntityManager());
+
+    Entity cameraEntity = coordinator.CreateEntity("Camera");
     coordinator.AddComponent(cameraEntity, CameraComponent(Camera));
 
-    Entity cubeEntity = coordinator.CreateEntity();
+    Entity cubeEntity = coordinator.CreateEntity("Cube");
     coordinator.AddComponent(cubeEntity, RenderInitializeComponent());
     coordinator.AddComponent(cubeEntity, VerticesComponent(vertices));
     coordinator.AddComponent(cubeEntity, ShaderComponent("LightCube.vert", "LightCube.frag"));
@@ -104,25 +106,20 @@ void OpenGLWindow::Render(GLFWwindow* window)
     //cube
     ColorCube colorCube{ "Colors.vert", "Colors.frag" };
 
-    ////cube settings
+    //cube settings
     colorCube.GetTransform().Position = vec3(0, 0, 0);
     colorCube.GetRender().LoadDiffuse("container.jpg");
     colorCube.GetRender().LoadSpecular("container_specular.jpg");
     colorCube.SetObjectMaterial({ 1.0f, 0.5f, 0.31f }, { 1.0f, 0.5f, 0.31f }, { 0.5f, 0.5f, 0.5f }, 32.0f);
     colorCube.ShaderSetLighting(light.GetTransform().Position, light.GetMaterial().Ambient, light.GetMaterial().Diffuse, light.GetMaterial().Specular);
 
-    ////shader settings
+    //shader settings
     Shader& colorCubeShader = colorCube.GetShader();
     colorCubeShader.SetInt("material.diffuse", 0);
     colorCubeShader.SetInt("material.specular", 1);
 
-    SceneHierarchyWindow sceneHierarchyWindow;
     //TODO: Make an actual object connection on view and in hierarchy window
-    sceneHierarchyWindow.AddObject("light_0", "Light");
-    sceneHierarchyWindow.AddObject("color_cube_0", "Color Cube");
-    sceneHierarchyWindow.AddObject("main_camera", "Camera");
-
-    InspectorWindow inspectorWindow;
+    //sceneHierarchyWindow.AddObject("cubeEntity", cubeEntity);
 
     while (!glfwWindowShouldClose(window))
     {
@@ -139,11 +136,10 @@ void OpenGLWindow::Render(GLFWwindow* window)
 
         //ImGui::ShowDemoWindow();
 
-        ruinumManager.Execute();
-
         colorCube.Draw(Camera);
-        sceneHierarchyWindow.Draw();
-        inspectorWindow.Draw();
+
+        ruinumEditor.Draw();
+        ruinumManager.Execute();
 
         Input(window);
 

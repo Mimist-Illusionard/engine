@@ -16,7 +16,7 @@ class Coordinator
 {
 public:
 	void Initialize();
-	Entity CreateEntity();
+	Entity CreateEntity(const char*);
 	void DestroyEntity(Entity);
 
 	template<typename T>
@@ -43,6 +43,11 @@ public:
 	template<typename T>
 	void SetSystemSignature(Signature signature);
 
+	EntityManager* GetEntityManager()
+	{
+		return _entityManager.get();
+	}
+
 private:
 	unique_ptr<ComponentManager> _componentManager;
 	unique_ptr<EntityManager> _entityManager;
@@ -54,11 +59,14 @@ void Coordinator::Initialize()
 	_componentManager = std::make_unique<ComponentManager>();
 	_entityManager = std::make_unique<EntityManager>();
 	_systemManager = std::make_unique<SystemManager>();
+
+	_entityManager->AddObserver(_componentManager.get());
+	_entityManager->AddObserver(_systemManager.get());
 }
 
-Entity Coordinator::CreateEntity()
+Entity Coordinator::CreateEntity(const char* name)
 {
-	return _entityManager->CreateEntity();
+	return _entityManager->CreateEntity(name);
 }
 
 template<typename T>
@@ -76,8 +84,8 @@ bool Coordinator::TryGetEntity(Entity& result)
 void Coordinator::DestroyEntity(Entity entity)
 {
 	_entityManager->DestroyEntity(entity);
-	_componentManager->EntityDestroyed(entity);
-	_systemManager->EntityDestroyed(entity);
+	//_componentManager->EntityDestroyed(entity);
+	//_systemManager->EntityDestroyed(entity);
 }
 
 template<typename T>
