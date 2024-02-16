@@ -10,19 +10,25 @@
 #include "../ECS.h"
 #include "../RuinumManager.hpp"
 #include "../observers/IEntityObservable.cpp"
+#include "../observers/ISignatureObservable.cpp"
+#include "../observers/IComponentObserver.cpp"
 
 using namespace std;
 
-class EntityManager : public IEntityObservable
+class EntityManager : public IEntityObservable, public ISignatureObservable, public IComponentObserver
 {
 public:
 	EntityManager();
 
 	Entity CreateEntity(const char*);
 	void DestroyEntity(Entity);
+
 	void SetSignature(Entity, Signature);
-	Signature GetSignature(Entity entity);
+	Signature GetSignature(Entity);
 	
+	void ComponentAdded(Entity entity, ComponentType componentType);
+	void ComponentRemoved(Entity entity, ComponentType componentType);
+
 	template<typename T>
 	bool TryGetEntity(ComponentType, Entity&);
 
@@ -81,6 +87,24 @@ Signature EntityManager::GetSignature(Entity entity)
 	assert(entity < MAX_ENTITIES && "Entity out of range.");
 
 	return _signatures[entity];
+}
+
+void EntityManager::ComponentAdded(Entity entity, ComponentType componentType)
+{
+	Signature signature = GetSignature(entity);
+	signature.set(componentType, true);
+	SetSignature(entity, signature);
+
+	OnSignatureChanged(entity, signature);
+}
+
+void EntityManager::ComponentRemoved(Entity entity, ComponentType componentType)
+{
+	Signature signature = GetSignature(entity);
+	signature.set(componentType, false);
+	SetSignature(entity, signature);
+
+	OnSignatureChanged(entity, signature);
 }
 
 template<typename T>

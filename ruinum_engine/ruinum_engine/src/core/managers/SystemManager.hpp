@@ -10,7 +10,7 @@
 
 using namespace std;
 
-class SystemManager: public IEntityObserver
+class SystemManager: public IEntityObserver, public ISignatureObserver
 {
 public:
 	template<typename T>
@@ -20,7 +20,7 @@ public:
 	void SetSignature(Signature);
 
 	void EntityDestroyed(Entity);
-	void EntitySignatureChanged(Entity, Signature);
+	void SignatureChanged(Entity, Signature);
 
 private:
 	unordered_map<const char*, Signature> _signatures{};
@@ -59,7 +59,7 @@ void SystemManager::EntityDestroyed(Entity entity)
 	}
 }
 
-void SystemManager::EntitySignatureChanged(Entity entity, Signature signature)
+void SystemManager::SignatureChanged(Entity entity, Signature signature)
 {
 	for (auto const& pair : _systems)
 	{

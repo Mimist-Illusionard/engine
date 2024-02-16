@@ -60,8 +60,11 @@ void Coordinator::Initialize()
 	_entityManager = std::make_unique<EntityManager>();
 	_systemManager = std::make_unique<SystemManager>();
 
-	_entityManager->AddObserver(_componentManager.get());
-	_entityManager->AddObserver(_systemManager.get());
+	_entityManager->AddEntityObserver(_componentManager.get());
+	_entityManager->AddEntityObserver(_systemManager.get());
+	_entityManager->AddSignatureObserver(_systemManager.get());
+
+	_componentManager->AddComponentObserver(_entityManager.get());
 }
 
 Entity Coordinator::CreateEntity(const char* name)
@@ -84,8 +87,6 @@ bool Coordinator::TryGetEntity(Entity& result)
 void Coordinator::DestroyEntity(Entity entity)
 {
 	_entityManager->DestroyEntity(entity);
-	//_componentManager->EntityDestroyed(entity);
-	//_systemManager->EntityDestroyed(entity);
 }
 
 template<typename T>
@@ -98,24 +99,12 @@ template<typename T>
 void Coordinator::AddComponent(Entity entity, T component)
 {
 	_componentManager->AddComponent<T>(entity, component);
-
-	Signature signature = _entityManager->GetSignature(entity);
-	signature.set(_componentManager->GetComponentType<T>(), true);
-	_entityManager->SetSignature(entity, signature);
-
-	_systemManager->EntitySignatureChanged(entity, signature);
 }
 
 template<typename T>
 void Coordinator::RemoveComponent(Entity entity)
 {
 	_componentManager->RemoveComponent<T>(entity);
-
-	Signature signature = _entityManager->GetSignature(entity);
-	signature.set(_componentManager->GetComponentType<T>(), false);
-	_entityManager->SetSignature(entity, signature);
-
-	_systemManager->EntitySignatureChanged(entity, signature);
 }
 
 template<typename T>

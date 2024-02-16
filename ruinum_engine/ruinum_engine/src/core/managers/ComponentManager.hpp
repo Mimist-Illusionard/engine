@@ -3,6 +3,7 @@
 
 #include "../ECS.h"
 #include "../ComponentArray.hpp"
+#include "../observers/IComponentObservable.cpp"
 
 #include <any>
 #include <memory>
@@ -10,7 +11,7 @@
 
 using namespace std;
 
-class ComponentManager: public IEntityObserver
+class ComponentManager: public IComponentObservable, public IEntityObserver
 {
 public:
 	template<typename T>
@@ -66,12 +67,14 @@ template<typename T>
 void ComponentManager::AddComponent(Entity entity, T component)
 {
 	GetComponentArray<T>()->InsertData(entity, component);
+	OnComponentAdded(entity, GetComponentType<T>());
 }
 
 template<typename T>
 void ComponentManager::RemoveComponent(Entity entity)
 {
 	GetComponentArray<T>()->RemoveData(entity);
+	OnComponentRemoved(entity, GetComponentType<T>());
 }
 
 template<typename T>

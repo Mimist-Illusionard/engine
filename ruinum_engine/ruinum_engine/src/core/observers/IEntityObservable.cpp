@@ -13,12 +13,12 @@ using namespace std;
 class IEntityObservable
 {
 public:
-	void AddObserver(IEntityObserver* observer)
+	void AddEntityObserver(IEntityObserver* observer)
 	{
 		_observers.push_back(observer);
 	}
 
-	void RemoveObserver(IEntityObserver* observer)
+	void RemoveEntityObserver(IEntityObserver* observer)
 	{
 		_observers.erase(remove(_observers.begin(), _observers.end(), observer), _observers.end());
 	}
