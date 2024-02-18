@@ -31,17 +31,17 @@ void RenderInitializeSystem::Execute()
 	{
 		_cleanUpEntities.push_back(entity);
 
-		auto& vertices = coordinator.GetComponent<VerticesComponent>(entity);
+		auto& verticesComponent = coordinator.GetComponent<VerticesComponent>(entity);
 
-		glGenBuffers(1, &vertices.VBO);
-		glGenVertexArrays(1, &vertices.VAO);
+		glGenBuffers(1, &verticesComponent.VBO);
+		glGenVertexArrays(1, &verticesComponent.VAO);
 
-		glBindVertexArray(vertices.VAO);
+		glBindVertexArray(verticesComponent.VAO);
 
-		glBindBuffer(GL_ARRAY_BUFFER, vertices.VBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices.Vertices), vertices.Vertices, GL_STATIC_DRAW);
+		glBindBuffer(GL_ARRAY_BUFFER, verticesComponent.VBO);
+		glBufferData(GL_ARRAY_BUFFER, verticesComponent.Size, verticesComponent.Vertices, GL_STATIC_DRAW);
 
-		glBindVertexArray(vertices.VAO);
+		glBindVertexArray(verticesComponent.VAO);
 		//vertices
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
 		glEnableVertexAttribArray(0);

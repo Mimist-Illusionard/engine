@@ -22,6 +22,8 @@ void CameraSystem::Initialize()
 
 void CameraSystem::Execute()
 {	
+	return;
+
 	for (auto const& entity : Entities)
 	{
 		

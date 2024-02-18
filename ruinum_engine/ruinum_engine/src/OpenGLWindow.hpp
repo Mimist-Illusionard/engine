@@ -22,7 +22,7 @@
 
 using namespace glm;
 
-EditorCamera Camera{ { 0.0f, 0.0f, 4.0f } };
+EditorCamera* Camera;
 
 void FramebufferCallback(GLFWwindow* window, int width, int height);
 void MouseCallback(GLFWwindow* window, double xpos, double ypos);
@@ -91,7 +91,10 @@ void OpenGLWindow::Render(GLFWwindow* window)
     ruinumEditor.Initialize(*coordinator.GetEntityManager());
 
     Entity cameraEntity = coordinator.CreateEntity("Camera");
-    coordinator.AddComponent(cameraEntity, CameraComponent(Camera));
+    coordinator.AddComponent(cameraEntity, CameraComponent());
+
+    auto& cameraComponent = coordinator.GetComponent<CameraComponent>(cameraEntity);
+    Camera = &cameraComponent.Camera;
 
     Entity cubeEntity = coordinator.CreateEntity("Cube");
     coordinator.AddComponent(cubeEntity, RenderInitializeComponent());
@@ -101,7 +104,7 @@ void OpenGLWindow::Render(GLFWwindow* window)
     coordinator.AddComponent(cubeEntity, TransformComponent(vec3(0, 0, 0), vec3(1, 1, 1), 0));
 
     //Light
-    LightObject light = Camera.Light;
+    LightObject light = Camera->Light;
 
     //cube
     ColorCube colorCube{ "Colors.vert", "Colors.frag" };
@@ -113,13 +116,10 @@ void OpenGLWindow::Render(GLFWwindow* window)
     colorCube.SetObjectMaterial({ 1.0f, 0.5f, 0.31f }, { 1.0f, 0.5f, 0.31f }, { 0.5f, 0.5f, 0.5f }, 32.0f);
     colorCube.ShaderSetLighting(light.GetTransform().Position, light.GetMaterial().Ambient, light.GetMaterial().Diffuse, light.GetMaterial().Specular);
 
-    //shader settings
+    //shader settings 
     Shader& colorCubeShader = colorCube.GetShader();
     colorCubeShader.SetInt("material.diffuse", 0);
     colorCubeShader.SetInt("material.specular", 1);
-
-    //TODO: Make an actual object connection on view and in hierarchy window
-    //sceneHierarchyWindow.AddObject("cubeEntity", cubeEntity);
 
     while (!glfwWindowShouldClose(window))
     {
@@ -135,11 +135,10 @@ void OpenGLWindow::Render(GLFWwindow* window)
         ImGui::NewFrame();
 
         //ImGui::ShowDemoWindow();
-
-        colorCube.Draw(Camera);
-
-        ruinumEditor.Draw();
         ruinumManager.Execute();
+        ruinumEditor.Draw();
+
+        //colorCube.Draw(*Camera);
 
         Input(window);
 
@@ -163,13 +162,13 @@ void OpenGLWindow::Input(GLFWwindow* window)
         glfwSetWindowShouldClose(window, true);
 
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        Camera.ProcessKeyboard(FORWARD, _deltaTime);
+        Camera->ProcessKeyboard(FORWARD, _deltaTime);
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        Camera.ProcessKeyboard(BACKWARDS, _deltaTime);
+        Camera->ProcessKeyboard(BACKWARDS, _deltaTime);
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        Camera.ProcessKeyboard(LEFT, _deltaTime);
+        Camera->ProcessKeyboard(LEFT, _deltaTime);
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        Camera.ProcessKeyboard(RIGHT, _deltaTime);
+        Camera->ProcessKeyboard(RIGHT, _deltaTime);
 }
 
 void FramebufferCallback(GLFWwindow* window, int width, int height)
@@ -179,11 +178,11 @@ void FramebufferCallback(GLFWwindow* window, int width, int height)
 
 void MouseCallback(GLFWwindow* window, double xposIn, double yposIn)
 {
-    Camera.ProcessMouseLook(xposIn, yposIn);
+    Camera->ProcessMouseLook(xposIn, yposIn);
 }
 
 void ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
 {
-    Camera.ProcessMouseScroll(yoffset);
+    Camera->ProcessMouseScroll(yoffset);
 }
 #endif

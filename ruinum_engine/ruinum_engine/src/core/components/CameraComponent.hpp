@@ -3,10 +3,7 @@
 
 struct CameraComponent
 {
-	EditorCamera Camera;
-	
-	CameraComponent(){}
-	CameraComponent(EditorCamera& camera) { Camera = camera; }
+	EditorCamera Camera { { 0.0f, 0.0f, 4.0f } };
 };
 
 #endif
