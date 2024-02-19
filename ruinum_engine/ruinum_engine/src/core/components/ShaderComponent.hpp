@@ -9,6 +9,9 @@ struct ShaderComponent
 	const char* FragmentPath;
 	const char* VertexPath;
 
+	const char* Diffuse = "";
+	const char* Specular = "";
+
 	ShaderComponent() {}
 	ShaderComponent(const char* vertexPath, const char* fragmentPath)
 	{		

@@ -99,9 +99,13 @@ void OpenGLWindow::Render(GLFWwindow* window)
     Entity cubeEntity = coordinator.CreateEntity("Cube");
     coordinator.AddComponent(cubeEntity, RenderInitializeComponent());
     coordinator.AddComponent(cubeEntity, VerticesComponent(vertices));
-    coordinator.AddComponent(cubeEntity, ShaderComponent("LightCube.vert", "LightCube.frag"));
+    coordinator.AddComponent(cubeEntity, ShaderComponent("Colors.vert", "Colors.frag"));
     coordinator.AddComponent(cubeEntity, MaterialComponent(vec3(1, 1, 1), vec3(1.0f, 0.5f, 0.31f), vec3(1.0f, 0.5f, 0.31f), vec3(0.5f, 0.5f, 0.5f), 32.0f));
     coordinator.AddComponent(cubeEntity, TransformComponent(vec3(0, 0, 0), vec3(1, 1, 1), 0));
+    
+    ShaderComponent& cubeShader = coordinator.GetComponent<ShaderComponent>(cubeEntity);
+    cubeShader.Diffuse = "container.jpg";
+    cubeShader.Specular = "container_specular.jpg";
 
     //Light
     LightObject light = Camera->Light;

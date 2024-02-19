@@ -56,6 +56,9 @@ void RenderInitializeSystem::Execute()
 
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glBindVertexArray(0);
+
+		LoadTexture("container.jpg", GL_TEXTURE0);
+		LoadTexture("container_specular.jpg", GL_TEXTURE1);
 	}
 }
 

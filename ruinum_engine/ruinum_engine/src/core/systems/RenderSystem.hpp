@@ -34,14 +34,11 @@ void RenderSystem::Initialize()
 
 void RenderSystem::Execute()
 {
-	//cout << "Render System entities amout: " << Entities.size() << endl;
 	if (Entities.size() <= 0) return;
 
 	Entity cameraEntity;
 	if (!coordinator.TryGetEntity<CameraComponent>(cameraEntity)) return; 
 	CameraComponent& camera = coordinator.GetComponent<CameraComponent>(cameraEntity);
-
-	//std::cout << "Position:" << camera.Camera.Position.x << "," << camera.Camera.Position.y << "," << camera.Camera.Position.z << std::endl;
 
 	for (auto const& entity : Entities)
 	{
@@ -58,6 +55,9 @@ void RenderSystem::Execute()
 
 		shader.mShader.SetMat4("projection", projection);
 		shader.mShader.SetMat4("view", view);
+
+		//shader.Diffuse != "" ? LoadTexture(shader.Diffuse, GL_TEXTURE0) : Log("There is no Diffuse map");
+		//shader.Specular != "" ? LoadTexture(shader.Specular, GL_TEXTURE1) : Log("There is no Specular map");
 
 		glBindVertexArray(verties.VAO);
 
