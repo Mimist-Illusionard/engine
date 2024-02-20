@@ -27,7 +27,8 @@ void main()
 {
     // ambient
     vec3 ambient = light.ambient * texture(material.diffuse, TexCoords).rgb;
-  	
+    //vec3 ambient = light.ambient;
+	
     // diffuse 
     vec3 norm = normalize(Normal);
     vec3 lightDir = normalize(light.position - FragPos);

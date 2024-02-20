@@ -2,6 +2,7 @@
 #define SYSTEMS
 
 #include "systems/RenderInitializeSystem.hpp";
+#include "systems/ShaderInitializeSystem.hpp";
 #include "systems/RenderSystem.hpp";
 #include "systems/CameraSystem.hpp";
 

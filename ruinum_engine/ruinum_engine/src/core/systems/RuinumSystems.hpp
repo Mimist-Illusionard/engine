@@ -18,6 +18,7 @@ private:
 void RuinumSystems::Initialize()
 {
 	_systems.push_back(coordinator.RegisterSystem<RenderInitializeSystem>());
+	_systems.push_back(coordinator.RegisterSystem<ShaderInitializeSystem>());
 	_systems.push_back(coordinator.RegisterSystem<RenderSystem>());
 	_systems.push_back(coordinator.RegisterSystem<CameraSystem>());
 

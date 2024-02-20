@@ -101,7 +101,7 @@ void OpenGLWindow::Render(GLFWwindow* window)
     coordinator.AddComponent(cubeEntity, VerticesComponent(vertices));
     coordinator.AddComponent(cubeEntity, ShaderComponent("Colors.vert", "Colors.frag"));
     coordinator.AddComponent(cubeEntity, MaterialComponent(vec3(1, 1, 1), vec3(1.0f, 0.5f, 0.31f), vec3(1.0f, 0.5f, 0.31f), vec3(0.5f, 0.5f, 0.5f), 32.0f));
-    coordinator.AddComponent(cubeEntity, TransformComponent(vec3(0, 0, 0), vec3(1, 1, 1), 0));
+    coordinator.AddComponent(cubeEntity, TransformComponent(vec3(2, 0, 0), vec3(1, 1, 1), 0));
     
     ShaderComponent& cubeShader = coordinator.GetComponent<ShaderComponent>(cubeEntity);
     cubeShader.Diffuse = "container.jpg";
@@ -109,6 +109,14 @@ void OpenGLWindow::Render(GLFWwindow* window)
 
     //Light
     LightObject light = Camera->Light;
+
+    cubeShader.mShader.SetVec3("light.position", light.GetTransform().Position);
+    cubeShader.mShader.SetVec3("light.ambient", light.GetMaterial().Ambient);
+    cubeShader.mShader.SetVec3("light.diffuse", light.GetMaterial().Diffuse);
+    cubeShader.mShader.SetVec3("light.specular", light.GetMaterial().Specular);
+
+    cubeShader.mShader.SetInt("material.diffuse", 0);
+    cubeShader.mShader.SetInt("material.specular", 1);
 
     //cube
     ColorCube colorCube{ "Colors.vert", "Colors.frag" };
@@ -142,7 +150,7 @@ void OpenGLWindow::Render(GLFWwindow* window)
         ruinumManager.Execute();
         ruinumEditor.Draw();
 
-        //colorCube.Draw(*Camera);
+        colorCube.Draw(*Camera);
 
         Input(window);
 

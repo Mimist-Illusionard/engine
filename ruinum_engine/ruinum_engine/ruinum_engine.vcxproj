@@ -190,6 +190,7 @@
     <ClInclude Include="src\core\systems\RuinumSystems.hpp" />
     <ClInclude Include="src\core\systems\RenderInitializeSystem.hpp" />
     <ClInclude Include="src\core\systems\RenderSystem.hpp" />
+    <ClInclude Include="src\core\systems\ShaderInitializeSystem.hpp" />
     <ClInclude Include="src\core\systems\System.hpp" />
     <ClInclude Include="src\editor\RuinumEditor.hpp" />
     <ClInclude Include="src\editor\windows\EditorWindow.hpp" />
