@@ -12,6 +12,7 @@ class RuinumManager
 {
 public:
 	void Initialize();
+	void PostInitialize();
 	void Execute();
 
 private:
@@ -24,6 +25,11 @@ void RuinumManager::Initialize()
 	coordinator.Initialize();
 	_register.Initialize();
 	_systems.Initialize();
+}
+
+void RuinumManager::PostInitialize()
+{
+	_systems.PostInitialize();
 }
 
 void RuinumManager::Execute()

@@ -11,6 +11,7 @@ class System
 {
 public:
 	virtual void Initialize() {}
+	virtual void PostInitialize() {}
 	virtual void Execute() {}
 	virtual void CleanUp() {}
 	virtual void OnDestroy() {}

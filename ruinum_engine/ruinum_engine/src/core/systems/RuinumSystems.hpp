@@ -8,6 +8,7 @@ class RuinumSystems
 {
 public:
 	void Initialize();
+	void PostInitialize();
 	void Execute();
 	void CleanUp();
 
@@ -19,6 +20,7 @@ void RuinumSystems::Initialize()
 {
 	_systems.push_back(coordinator.RegisterSystem<RenderInitializeSystem>());
 	_systems.push_back(coordinator.RegisterSystem<ShaderInitializeSystem>());
+	_systems.push_back(coordinator.RegisterSystem<LightUpdateSystem>());
 	_systems.push_back(coordinator.RegisterSystem<RenderSystem>());
 	_systems.push_back(coordinator.RegisterSystem<CameraSystem>());
 
@@ -27,6 +29,15 @@ void RuinumSystems::Initialize()
 		system->Initialize();
 	}
 }
+
+void RuinumSystems::PostInitialize()
+{
+	for (shared_ptr<System> system : _systems)
+	{
+		system->PostInitialize();
+	}
+}
+
 
 void RuinumSystems::Execute() 
 {

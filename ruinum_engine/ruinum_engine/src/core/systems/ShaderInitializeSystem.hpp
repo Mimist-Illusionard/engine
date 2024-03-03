@@ -1,8 +1,6 @@
 #ifndef SHADER_INITIALIZE_SYSTEM
 #define SHADER_INITIALIZE_SYSTEM
 
-#include "System.hpp"
-
 #include "../Components.h"
 #include "System.hpp"
 
@@ -27,15 +25,22 @@ void ShaderInitializeSystem::Execute()
 {
 	for (auto const& entity : Entities)
 	{
-		auto& materialComponent = coordinator.GetComponent<MaterialComponent>(entity);
 		auto& shaderComponent = coordinator.GetComponent<ShaderComponent>(entity);
+		auto& materialComponent = coordinator.GetComponent<MaterialComponent>(entity);
 		
-		auto& shader = shaderComponent.mShader;		
+		auto& shader = shaderComponent.mShader;
 
-		shader.SetVec3("material.ambient", materialComponent.Ambient);
+		shader.Use();
+
 		shader.SetVec3("material.diffuse", materialComponent.Diffuse);
 		shader.SetVec3("material.specular", materialComponent.Specular);
-		shader.SetFloat("material.shininess", materialComponent.Shininess);
+		shader.SetFloat("material.shininess", materialComponent.Shininess);	
+
+		if (shaderComponent.Diffuse != "") LoadTexture(shaderComponent.Diffuse, GL_TEXTURE0);
+		if (shaderComponent.Specular != "") LoadTexture(shaderComponent.Specular, GL_TEXTURE1);
+
+		shader.SetInt("material.diffuse", 0);
+		shader.SetInt("material.specular", 1);
 	}
 }
 

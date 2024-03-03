@@ -56,9 +56,6 @@ void RenderSystem::Execute()
 		shader.mShader.SetMat4("projection", projection);
 		shader.mShader.SetMat4("view", view);
 
-		//shader.Diffuse != "" ? LoadTexture(shader.Diffuse, GL_TEXTURE0) : Log("There is no Diffuse map");
-		//shader.Specular != "" ? LoadTexture(shader.Specular, GL_TEXTURE1) : Log("There is no Specular map");
-
 		glBindVertexArray(verties.VAO);
 
 		mat4 model = glm::mat4(1.0f);

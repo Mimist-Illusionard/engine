@@ -18,7 +18,7 @@ struct ShaderComponent
 		VertexPath = vertexPath;
 		FragmentPath = fragmentPath;
 
-		mShader = Shader{ VertexPath, FragmentPath };		
+		mShader = Shader{ VertexPath, FragmentPath };
 	}
 };
 

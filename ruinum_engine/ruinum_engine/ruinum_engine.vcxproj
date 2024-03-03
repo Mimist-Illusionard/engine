@@ -173,6 +173,7 @@
     <ClInclude Include="src\core\ComponentRegister.hpp" />
     <ClInclude Include="src\core\components\CameraComponent.hpp" />
     <ClInclude Include="src\core\Components.h" />
+    <ClInclude Include="src\core\components\LightComponent.hpp" />
     <ClInclude Include="src\core\components\RenderComponent.hpp" />
     <ClInclude Include="src\core\components\RenderInitializeComponent.hpp" />
     <ClInclude Include="src\core\components\VerticesComponent.hpp" />
@@ -187,6 +188,7 @@
     <ClInclude Include="src\core\RuinumManager.hpp" />
     <ClInclude Include="src\core\Systems.h" />
     <ClInclude Include="src\core\systems\CameraSystem.hpp" />
+    <ClInclude Include="src\core\systems\LightUpdateSystem.hpp" />
     <ClInclude Include="src\core\systems\RuinumSystems.hpp" />
     <ClInclude Include="src\core\systems\RenderInitializeSystem.hpp" />
     <ClInclude Include="src\core\systems\RenderSystem.hpp" />
