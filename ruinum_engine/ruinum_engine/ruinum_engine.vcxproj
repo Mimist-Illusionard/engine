@@ -194,6 +194,8 @@
     <ClInclude Include="src\core\systems\RenderSystem.hpp" />
     <ClInclude Include="src\core\systems\ShaderInitializeSystem.hpp" />
     <ClInclude Include="src\core\systems\System.hpp" />
+    <ClInclude Include="src\editor\component_drawers\ComponentDrawer.hpp" />
+    <ClInclude Include="src\editor\component_drawers\TransformComponentDrawer.hpp" />
     <ClInclude Include="src\editor\RuinumEditor.hpp" />
     <ClInclude Include="src\editor\windows\EditorWindow.hpp" />
     <ClInclude Include="src\editor\windows\InspectorWindow.hpp" />

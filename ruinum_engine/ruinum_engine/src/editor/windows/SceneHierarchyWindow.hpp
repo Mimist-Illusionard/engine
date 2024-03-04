@@ -2,6 +2,8 @@
 #define SCENE_HIERARCHY_WINDOW
 
 #include "EditorWindow.hpp"
+#include "InspectorWindow.hpp"
+
 #include "imgui/imgui.h"
 #include "../../core/ECS.h"
 
@@ -16,6 +18,7 @@ class SceneHierarchyWindow: public EditorWindow, public IEntityObserver
 {
 public:
 	SceneHierarchyWindow();
+	void SetInspectorWindow(InspectorWindow);
 	void Draw();
 	void AddObject(char*, Entity);
 	void RemoveObject(char*);
@@ -24,6 +27,7 @@ public:
 	void EntityDestoryed(Entity);
 
 private:
+	InspectorWindow* _inspectorWindow;
 	ImGuiWindowFlags _flags;
 	map<char*, Entity> _objects;
 	int _objectsSize = 0;
@@ -38,6 +42,11 @@ SceneHierarchyWindow::SceneHierarchyWindow()
 	Initialize();
 }
 
+void SceneHierarchyWindow::SetInspectorWindow(InspectorWindow inspectorWindow)
+{
+	_inspectorWindow = &inspectorWindow;
+}
+
 void SceneHierarchyWindow::Initialize()
 {
 	_flags |= ImGuiWindowFlags_NoCollapse;
@@ -50,8 +59,11 @@ void SceneHierarchyWindow::Draw()
 	int counter = 0;
 	for (map<char*, Entity>::iterator i = _objects.begin(); i != _objects.end(); ++i)
 	{
-		if (Selectable(i -> first, _selected == counter))
+		if (Selectable(i->first, _selected == counter))
+		{
 			_selected = counter;
+			_inspectorWindow->SetEntity(i->second);
+		}
 		counter++;
 	}
 

@@ -19,10 +19,12 @@ private:
 void RuinumEditor::Initialize(EntityManager& entityManager)
 {
 	SceneHierarchyWindow sceneHierarchyWindow;
-	_sceneHierarchyWindow = sceneHierarchyWindow;
+	_sceneHierarchyWindow = sceneHierarchyWindow;	
 
 	InspectorWindow inspectorWindow;
 	_inspectorWindow = inspectorWindow;
+
+	_sceneHierarchyWindow.SetInspectorWindow(_inspectorWindow);
 
 	entityManager.AddEntityObserver(&_sceneHierarchyWindow);
 }
