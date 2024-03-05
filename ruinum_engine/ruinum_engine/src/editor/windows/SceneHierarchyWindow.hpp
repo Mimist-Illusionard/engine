@@ -2,10 +2,10 @@
 #define SCENE_HIERARCHY_WINDOW
 
 #include "EditorWindow.hpp"
-#include "InspectorWindow.hpp"
 
 #include "imgui/imgui.h"
 #include "../../core/ECS.h"
+#include "../../core/observers/ISelectObservable.cpp"
 
 #include <stdio.h>
 #include <guiddef.h>
@@ -14,11 +14,10 @@
 using namespace ImGui;
 using namespace std;
 
-class SceneHierarchyWindow: public EditorWindow, public IEntityObserver
+class SceneHierarchyWindow: public EditorWindow, public IEntityObserver, public ISelectObservable
 {
 public:
 	SceneHierarchyWindow();
-	void SetInspectorWindow(InspectorWindow);
 	void Draw();
 	void AddObject(char*, Entity);
 	void RemoveObject(char*);
@@ -27,7 +26,6 @@ public:
 	void EntityDestoryed(Entity);
 
 private:
-	InspectorWindow* _inspectorWindow;
 	ImGuiWindowFlags _flags;
 	map<char*, Entity> _objects;
 	int _objectsSize = 0;
@@ -40,11 +38,6 @@ private:
 SceneHierarchyWindow::SceneHierarchyWindow() 
 {
 	Initialize();
-}
-
-void SceneHierarchyWindow::SetInspectorWindow(InspectorWindow inspectorWindow)
-{
-	_inspectorWindow = &inspectorWindow;
 }
 
 void SceneHierarchyWindow::Initialize()
@@ -62,7 +55,7 @@ void SceneHierarchyWindow::Draw()
 		if (Selectable(i->first, _selected == counter))
 		{
 			_selected = counter;
-			_inspectorWindow->SetEntity(i->second);
+			OnSelectChanged(i->second);
 		}
 		counter++;
 	}

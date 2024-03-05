@@ -147,6 +147,8 @@
     <ClCompile Include="src\core\observers\IComponentObserver.cpp" />
     <ClCompile Include="src\core\observers\IEntityObservable.cpp" />
     <ClCompile Include="src\core\observers\IEntityObserver.cpp" />
+    <ClCompile Include="src\core\observers\ISelectObservable.cpp" />
+    <ClCompile Include="src\core\observers\ISelectObserver.cpp" />
     <ClCompile Include="src\core\observers\ISignatureObservable.cpp" />
     <ClCompile Include="src\core\observers\ISignatureObserver.cpp" />
     <ClCompile Include="src\editor\EditorUtilities.cpp" />

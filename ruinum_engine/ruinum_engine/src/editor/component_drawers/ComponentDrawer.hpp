@@ -13,7 +13,7 @@ class ComponentDrawer
 {
 public:
 	virtual void Set(Entity) {}
-	virtual void Draw() { cout << "test"; }
+	virtual void Draw() {}
 };
 
 #endif

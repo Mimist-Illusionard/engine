@@ -6,16 +6,17 @@
 
 #include "../component_drawers/ComponentDrawer.hpp"
 #include "../component_drawers/TransformComponentDrawer.hpp"
+#include "../../core/observers/ISelectObserver.cpp"
 
 using namespace ImGui;
 using namespace std;
 
-class InspectorWindow: EditorWindow
+class InspectorWindow: EditorWindow, public ISelectObserver
 {
 public:
 	InspectorWindow();
 	void Draw();
-	void SetEntity(Entity entity);
+	void SelectChanged(Entity entity);
 
 private:
 	ImGuiWindowFlags _flags;
@@ -40,26 +41,30 @@ void InspectorWindow::Draw()
 {
 	Begin("Inspector", _open, _flags);
 		
-	Text("Name: " + _name);	
+	Text("Name: " + _name);
 
 	for (auto it = begin(_compDrawers); it != end(_compDrawers); ++it) {
 		it->Draw();
-		cout << "draws test";
+		cout << "Draw drawer" << endl;
 	}
 
 	End();
 }
 
-void InspectorWindow::SetEntity(Entity entity)
+void InspectorWindow::SelectChanged(Entity entity) 
 {
+	cout << "Select changed";
+
 	Signature entitySignature = coordinator.GetEntityManager()->GetSignature(entity);
 
-	if (entitySignature.test(coordinator.GetComponentType<TransformComponent>())) 
+	if (entitySignature.test(coordinator.GetComponentType<TransformComponent>()))
 	{
-		cout << "Transform component on " << entity << endl;
+		//cout << "Transform component on " << entity << endl;
 		TransformComponentDrawer transformDrawer;
 		transformDrawer.Set(entity);
-		
+
+		cout << "transfprm setted";
+
 		_compDrawers.push_back(transformDrawer);
 	}
 }

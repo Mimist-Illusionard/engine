@@ -15,11 +15,14 @@ private:
 
 void TransformComponentDrawer::Set(Entity entity)
 {
+	std::cout << "test";
 	_component = &coordinator.GetComponent<TransformComponent>(entity);
 }
 
 void TransformComponentDrawer::Draw()
 {
+	cout << "Draw TransfomComponent";
+
 	Text("Transform Component");
 	
 	Text("Position:");

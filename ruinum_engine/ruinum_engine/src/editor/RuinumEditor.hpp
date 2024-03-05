@@ -24,8 +24,7 @@ void RuinumEditor::Initialize(EntityManager& entityManager)
 	InspectorWindow inspectorWindow;
 	_inspectorWindow = inspectorWindow;
 
-	_sceneHierarchyWindow.SetInspectorWindow(_inspectorWindow);
-
+	_sceneHierarchyWindow.AddSelectObserver(&_inspectorWindow);
 	entityManager.AddEntityObserver(&_sceneHierarchyWindow);
 }
 
