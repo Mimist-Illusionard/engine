@@ -20,7 +20,7 @@ public:
 
 private:
 	ImGuiWindowFlags _flags;
-	vector<ComponentDrawer> _compDrawers;
+	vector <shared_ptr<ComponentDrawer>> _compDrawers;
 	char _name;
 	bool* _open;
 
@@ -41,11 +41,11 @@ void InspectorWindow::Draw()
 {
 	Begin("Inspector", _open, _flags);
 		
-	Text("Name: " + _name);
+	Text("Name: " + _name);		
 
-	for (auto it = begin(_compDrawers); it != end(_compDrawers); ++it) {
-		it->Draw();
-		cout << "Draw drawer" << endl;
+	for (auto drawer : _compDrawers)
+	{
+		drawer->Draw();
 	}
 
 	End();
@@ -53,17 +53,12 @@ void InspectorWindow::Draw()
 
 void InspectorWindow::SelectChanged(Entity entity) 
 {
-	cout << "Select changed";
-
 	Signature entitySignature = coordinator.GetEntityManager()->GetSignature(entity);
 
 	if (entitySignature.test(coordinator.GetComponentType<TransformComponent>()))
 	{
-		//cout << "Transform component on " << entity << endl;
-		TransformComponentDrawer transformDrawer;
-		transformDrawer.Set(entity);
-
-		cout << "transfprm setted";
+		shared_ptr<TransformComponentDrawer> transformDrawer = make_shared<TransformComponentDrawer>();
+		transformDrawer->Set(entity);
 
 		_compDrawers.push_back(transformDrawer);
 	}

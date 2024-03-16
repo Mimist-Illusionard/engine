@@ -25,8 +25,6 @@ public:
 
 	void OnSelectChanged(Entity entity)
 	{
-		cout << _observers.size();
-
 		for (auto observer : _observers)
 		{
 			observer->SelectChanged(entity);

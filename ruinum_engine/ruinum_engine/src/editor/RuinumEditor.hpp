@@ -31,7 +31,7 @@ void RuinumEditor::Initialize(EntityManager& entityManager)
 void RuinumEditor::Draw()
 {
 	_sceneHierarchyWindow.Draw();
-	_inspectorWindow.Draw();
+	_inspectorWindow.Draw(); 
 }
 
 #endif
