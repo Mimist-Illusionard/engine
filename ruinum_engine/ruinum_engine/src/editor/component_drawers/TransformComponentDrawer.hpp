@@ -20,19 +20,20 @@ void TransformComponentDrawer::Set(Entity entity)
 
 void TransformComponentDrawer::Draw()
 {
-	Text("Transform Component");
-	
-	Text("Position:");
-	DragFloat("x_position", &_component->Position.x, 0.05f);
-	DragFloat("y_position", &_component->Position.y, 0.05f);
-	DragFloat("z_position", &_component->Position.z, 0.05f);
-	
-	Text("Scale:");
-	DragFloat("x_scale", &_component->Scale.x, 0.05f);
-	DragFloat("y_scale", &_component->Scale.y, 0.05f);
-	DragFloat("z_scale", &_component->Scale.z, 0.05f);
+	if (ImGui::CollapsingHeader("Transform Component", ImGuiTreeNodeFlags_None))
+	{
+		Text("Position:");
+		DragFloat("x_position", &_component->Position.x, 0.05f);
+		DragFloat("y_position", &_component->Position.y, 0.05f);
+		DragFloat("z_position", &_component->Position.z, 0.05f);
 
-	Text("Angle");
-	DragFloat("##", &_component->Angle, 0.05f);
+		Text("Scale:");
+		DragFloat("x_scale", &_component->Scale.x, 0.05f);
+		DragFloat("y_scale", &_component->Scale.y, 0.05f);
+		DragFloat("z_scale", &_component->Scale.z, 0.05f);
+
+		Text("Angle");
+		DragFloat("a", &_component->Angle, 0.05f);
+	}
 }
 #endif

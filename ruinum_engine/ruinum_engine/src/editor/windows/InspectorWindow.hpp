@@ -4,8 +4,10 @@
 #include "EditorWindow.hpp"
 #include "imgui/imgui.h"
 
-#include "../component_drawers/ComponentDrawer.hpp"
-#include "../component_drawers/TransformComponentDrawer.hpp"
+#include <map>
+
+#include "../component_drawers/Drawers.h"
+#include "../src/extentions/EntityExtentions.h"
 #include "../../core/observers/ISelectObserver.cpp"
 
 using namespace ImGui;
@@ -20,7 +22,7 @@ public:
 
 private:
 	ImGuiWindowFlags _flags;
-	vector <shared_ptr<ComponentDrawer>> _compDrawers;
+	vector<shared_ptr<ComponentDrawer>> _compDrawers; //Make map and take drawers to this vector instead of creating new object
 	char _name;
 	bool* _open;
 
@@ -40,8 +42,8 @@ void InspectorWindow::Initialize()
 void InspectorWindow::Draw()
 {
 	Begin("Inspector", _open, _flags);
-		
-	Text("Name: " + _name);		
+
+	Text("Name: " + _name);
 
 	for (auto drawer : _compDrawers)
 	{
@@ -51,16 +53,34 @@ void InspectorWindow::Draw()
 	End();
 }
 
-void InspectorWindow::SelectChanged(Entity entity) 
+//TODO: Make more lightweight and easier drawer implementer
+//NOT hard coding
+void InspectorWindow::SelectChanged(Entity entity)
 {
-	Signature entitySignature = coordinator.GetEntityManager()->GetSignature(entity);
-
-	if (entitySignature.test(coordinator.GetComponentType<TransformComponent>()))
+	_compDrawers.clear();
+	
+	if (HasComponent<TransformComponent>(entity)) 
 	{
 		shared_ptr<TransformComponentDrawer> transformDrawer = make_shared<TransformComponentDrawer>();
 		transformDrawer->Set(entity);
 
 		_compDrawers.push_back(transformDrawer);
+	}
+
+	if (HasComponent<MaterialComponent>(entity))
+	{
+		shared_ptr<MaterialComponentDrawer> materialDrawer = make_shared<MaterialComponentDrawer>(); 
+		materialDrawer->Set(entity);
+
+		_compDrawers.push_back(materialDrawer);
+	}
+
+	if (HasComponent<LightComponent>(entity))
+	{
+		shared_ptr<LightComponentDrawer> materialDrawer = make_shared<LightComponentDrawer>();
+		materialDrawer->Set(entity);
+
+		_compDrawers.push_back(materialDrawer);
 	}
 }
 

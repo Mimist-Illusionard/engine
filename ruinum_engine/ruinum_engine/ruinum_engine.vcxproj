@@ -152,7 +152,6 @@
     <ClCompile Include="src\core\observers\ISignatureObservable.cpp" />
     <ClCompile Include="src\core\observers\ISignatureObserver.cpp" />
     <ClCompile Include="src\editor\EditorUtilities.cpp" />
-    <ClCompile Include="src\extentions\ListExtentions.cpp" />
     <ClCompile Include="src\extentions\LogExtentions.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\shader\ShaderCreator.cpp" />
@@ -182,6 +181,7 @@
     <ClInclude Include="src\core\components\ShaderComponent.hpp" />
     <ClInclude Include="src\core\Coordinator.hpp" />
     <ClInclude Include="src\core\ECS.h" />
+    <ClInclude Include="src\extentions\EntityExtentions.h" />
     <ClInclude Include="src\core\managers\ComponentManager.hpp" />
     <ClInclude Include="src\core\managers\ECS.h" />
     <ClInclude Include="src\core\components\MaterialComponent.hpp" />
@@ -197,13 +197,15 @@
     <ClInclude Include="src\core\systems\ShaderInitializeSystem.hpp" />
     <ClInclude Include="src\core\systems\System.hpp" />
     <ClInclude Include="src\editor\component_drawers\ComponentDrawer.hpp" />
+    <ClInclude Include="src\editor\component_drawers\Drawers.h" />
+    <ClInclude Include="src\editor\component_drawers\LightComponentDrawer.hpp" />
+    <ClInclude Include="src\editor\component_drawers\MaterialComponentDrawer.hpp" />
     <ClInclude Include="src\editor\component_drawers\TransformComponentDrawer.hpp" />
     <ClInclude Include="src\editor\RuinumEditor.hpp" />
     <ClInclude Include="src\editor\windows\EditorWindow.hpp" />
     <ClInclude Include="src\editor\windows\InspectorWindow.hpp" />
     <ClInclude Include="src\editor\windows\SceneHierarchyWindow.hpp" />
     <ClInclude Include="src\core\managers\EntityManager.hpp" />
-    <ClInclude Include="src\extentions\ListExtentions.h" />
     <ClInclude Include="src\extentions\LogExtentions.h" />
     <ClInclude Include="src\objects\ColorCube.hpp" />
     <ClInclude Include="src\objects\LightObject.hpp" />

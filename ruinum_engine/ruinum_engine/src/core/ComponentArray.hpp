@@ -16,7 +16,7 @@ public:
 
 template<typename T>
 class ComponentArray: public IComponentArray
-{
+{ 
 public:
 	void InsertData(Entity entity, T component)
 	{

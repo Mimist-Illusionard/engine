@@ -54,9 +54,6 @@
     <ClCompile Include="includes\imgui\imgui_widgets.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="src\extentions\ListExtentions.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="src\extentions\LogExtentions.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -233,9 +230,6 @@
     <ClInclude Include="src\core\RuinumManager.hpp">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="src\extentions\ListExtentions.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="src\extentions\LogExtentions.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
@@ -258,6 +252,18 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="src\editor\component_drawers\TransformComponentDrawer.hpp">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="src\editor\component_drawers\MaterialComponentDrawer.hpp">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="src\editor\component_drawers\LightComponentDrawer.hpp">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="src\editor\component_drawers\Drawers.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="src\extentions\EntityExtentions.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

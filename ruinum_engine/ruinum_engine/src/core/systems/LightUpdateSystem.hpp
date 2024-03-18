@@ -8,10 +8,11 @@ class LightUpdateSystem : public System
 {
 public:
 	void Initialize();
+	void PostInitialize();
 	void Execute();
 	void CleanUp();
 private:
-	MaterialComponent _lightMaterial;
+	LightComponent* _light;
 };
 
 void LightUpdateSystem::Initialize()
@@ -20,11 +21,13 @@ void LightUpdateSystem::Initialize()
 
 	signature.set(coordinator.GetComponentType<ShaderComponent>());
 	coordinator.SetSystemSignature<LightUpdateSystem>(signature);
+}
 
-	_lightMaterial.Color = vec3(1.0f, 1.0f, 1.0f);
-	_lightMaterial.Diffuse = _lightMaterial.Color * vec3(0.5f);
-	_lightMaterial.Ambient = _lightMaterial.Color * vec3(0.5f);
-	_lightMaterial.Specular = vec3(1.0f);
+void LightUpdateSystem::PostInitialize()
+{
+	auto lightEntity = coordinator.CreateEntity("Ambient light");
+	coordinator.AddComponent(lightEntity, LightComponent(vec3(1.0f, 1.0f, 1.0f), vec3(0.5f), vec3(0.5f), vec3(1.0f)));
+	_light = &coordinator.GetComponent<LightComponent>(lightEntity);
 }
 
 void LightUpdateSystem::Execute()
@@ -41,15 +44,12 @@ void LightUpdateSystem::Execute()
 
 		shader.Use();
 
-		shader.SetVec3("light.ambient", _lightMaterial.Ambient);
+		shader.SetVec3("light.ambient", _light->Ambient * _light->Color);
 		shader.SetVec3("light.position", lightPosition);
-		shader.SetVec3("light.diffuse", _lightMaterial.Diffuse);
-		shader.SetVec3("light.specular", _lightMaterial.Specular);
+		shader.SetVec3("light.diffuse", _light->Diffuse * _light->Color);
+		shader.SetVec3("light.specular", _light->Specular);
 	}
 }
 
-void LightUpdateSystem::CleanUp()
-{
-}
-
+void LightUpdateSystem::CleanUp() {}
 #endif
