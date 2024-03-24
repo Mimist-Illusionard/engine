@@ -28,19 +28,19 @@ void LightComponentDrawer::Draw()
 		DragFloat("blue", &_component->Color.z, 0.05f);
 
 		Text("Ambient:");
-		DragFloat("x_ambient", &_component->Ambient.x, 0.05f);
-		DragFloat("y_ambient", &_component->Ambient.y, 0.05f);
-		DragFloat("z_ambient", &_component->Ambient.z, 0.05f);
+		DragFloat("r_ambient", &_component->Ambient.x, 0.05f);
+		DragFloat("g_ambient", &_component->Ambient.y, 0.05f);
+		DragFloat("b_ambient", &_component->Ambient.z, 0.05f);
 
 		Text("Diffuse:");
-		DragFloat("x_diffuse", &_component->Diffuse.x, 0.05f);
-		DragFloat("y_diffuse", &_component->Diffuse.y, 0.05f);
-		DragFloat("z_diffuse", &_component->Diffuse.z, 0.05f);
+		DragFloat("r_diffuse", &_component->Diffuse.x, 0.05f);
+		DragFloat("g_diffuse", &_component->Diffuse.y, 0.05f);
+		DragFloat("b_diffuse", &_component->Diffuse.z, 0.05f);
 
 		Text("Specular:");
-		DragFloat("x_specular", &_component->Specular.x, 0.05f);
-		DragFloat("y_specular", &_component->Specular.y, 0.05f);
-		DragFloat("z_specular", &_component->Specular.z, 0.05f);
+		DragFloat("r_specular", &_component->Specular.x, 0.05f);
+		DragFloat("g_specular", &_component->Specular.y, 0.05f);
+		DragFloat("b_specular", &_component->Specular.z, 0.05f);
 	}
 }
 #endif
